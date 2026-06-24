@@ -189,7 +189,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
                 });
             }
 
-            // --- wormhole comet: a spark racing along the jump arc ---
+            // --- wormhole comet: a streak racing along the jump arc ---
             if let Some((from, to, start)) = &app.transition {
                 let dt = (elapsed - start) / JUMP_SECS;
                 if (0.0..1.0).contains(&dt) {
@@ -200,24 +200,64 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
                         let a = map(pf.0, pf.1);
                         let b = map(pt.0, pt.1);
                         let c = ctrl_point(a, b, center);
-                        let tt = anim::ease_out_cubic(dt) as f64;
-                        let u = 1.0 - tt;
-                        let x = u * u * a.0 + 2.0 * u * tt * c.0 + tt * tt * b.0;
-                        let y = u * u * a.1 + 2.0 * u * tt * c.1 + tt * tt * b.1;
-                        let ring: Vec<(f64, f64)> = (0..10)
-                            .map(|k| {
-                                let ang = k as f64 / 10.0 * std::f64::consts::TAU;
-                                (x + ang.cos() * 2.4, y + ang.sin() * 1.2)
+                        let bezier = |t: f64| -> (f64, f64) {
+                            let u = 1.0 - t;
+                            (
+                                u * u * a.0 + 2.0 * u * t * c.0 + t * t * b.0,
+                                u * u * a.1 + 2.0 * u * t * c.1 + t * t * b.1,
+                            )
+                        };
+                        let head = anim::smoothstep(dt) as f64;
+
+                        // Fading trail behind the head.
+                        const TRAIL: usize = 10;
+                        for k in 0..TRAIL {
+                            let t = (head - k as f64 * 0.05).max(0.0);
+                            let (x, y) = bezier(t);
+                            let fade = 1.0 - k as f32 / TRAIL as f32;
+                            ctx.draw(&Points {
+                                coords: &[(x, y)],
+                                color: Color::Rgb(
+                                    (90.0 + 120.0 * fade) as u8,
+                                    (170.0 + 70.0 * fade) as u8,
+                                    255,
+                                ),
+                            });
+                        }
+
+                        // Bright head with a small halo.
+                        let (hx, hy) = bezier(head);
+                        let halo: Vec<(f64, f64)> = (0..10)
+                            .map(|i| {
+                                let ang = i as f64 / 10.0 * std::f64::consts::TAU;
+                                (hx + ang.cos() * 2.6, hy + ang.sin() * 1.3)
                             })
                             .collect();
                         ctx.draw(&Points {
-                            coords: &ring,
-                            color: Color::Rgb(120, 220, 255),
+                            coords: &halo,
+                            color: Color::Rgb(150, 220, 255),
                         });
                         ctx.draw(&Points {
-                            coords: &[(x, y)],
+                            coords: &[(hx, hy)],
                             color: Color::Rgb(255, 255, 255),
                         });
+
+                        // Pulse the destination as the head nears it.
+                        if dt > 0.6 {
+                            let (dx, dy) = bezier(1.0);
+                            let burst = ((dt - 0.6) / 0.4) as f64;
+                            let rr = 1.0 + burst * 3.0;
+                            let flash: Vec<(f64, f64)> = (0..14)
+                                .map(|i| {
+                                    let ang = i as f64 / 14.0 * std::f64::consts::TAU;
+                                    (dx + ang.cos() * rr * 2.0, dy + ang.sin() * rr)
+                                })
+                                .collect();
+                            ctx.draw(&Points {
+                                coords: &flash,
+                                color: Color::Rgb(255, 255, 255),
+                            });
+                        }
                     }
                 }
             }

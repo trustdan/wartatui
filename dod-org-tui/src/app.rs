@@ -32,7 +32,7 @@ pub struct Relation {
 pub type Transition = (String, String, f32);
 
 /// Wormhole transition duration in seconds.
-pub const JUMP_SECS: f32 = 0.7;
+pub const JUMP_SECS: f32 = 1.0;
 
 pub struct App {
     pub tree: TreeState,

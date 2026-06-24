@@ -38,6 +38,12 @@ pub fn ease_out_cubic(t: f32) -> f32 {
     1.0 - p * p * p
 }
 
+/// Even-paced ease in/out — visible motion across the whole span.
+pub fn smoothstep(t: f32) -> f32 {
+    let t = clamp01(t);
+    t * t * (3.0 - 2.0 * t)
+}
+
 /// A 0..1 triangle/sine pulse for breathing effects.
 pub fn pulse(elapsed: f32, speed: f32) -> f32 {
     (elapsed * speed).sin() * 0.5 + 0.5
