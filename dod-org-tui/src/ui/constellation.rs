@@ -54,13 +54,15 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let h = area.height.saturating_sub(2) as f64;
     let cx = w / 2.0;
     let cy = h / 2.0;
-    // Vertical radius; horizontal scaled ×2 to offset terminal cell aspect.
-    let r = (h / 2.0 - 1.0).min(w / 4.0 - 1.0).max(1.0);
+    // Fill the whole panel as an ellipse so the outermost ring always lands
+    // just inside the border — nothing is ever cut off.
+    let rx = (w / 2.0 - 2.0).max(1.0);
+    let ry = (h / 2.0 - 1.0).max(1.0);
 
     let map = |radius: f32, angle: f32| -> (f64, f64) {
         let rad = radius as f64;
         let ang = angle as f64;
-        (cx + rad * ang.cos() * 2.0 * r, cy + rad * ang.sin() * r)
+        (cx + rad * ang.cos() * rx, cy + rad * ang.sin() * ry)
     };
 
     // Boot: grow the constellation outward in step with the tree cascade.

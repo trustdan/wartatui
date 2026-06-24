@@ -31,6 +31,8 @@ pub struct App {
     pub show_card: bool,
     pub focus: Panel,
     pub card_scroll: u16,
+    /// When the card holds focus, which hyperlink (if any) is selected.
+    pub link_focus: Option<usize>,
     pub clock: Clock,
     pub should_quit: bool,
     /// Radial positions for the constellation (computed once).
@@ -58,6 +60,7 @@ impl App {
             show_card: false,
             focus: Panel::Tree,
             card_scroll: 0,
+            link_focus: None,
             clock: Clock::new(),
             should_quit: false,
             positions,
@@ -98,15 +101,17 @@ impl App {
             KeyCode::Char('c') if ctrl => self.should_quit = true,
 
             // Panel focus
-            KeyCode::Tab | KeyCode::BackTab => self.cycle_focus(),
+            KeyCode::Tab => self.cycle_focus(),
+            KeyCode::BackTab => {
+                self.focus = Panel::Tree;
+                self.link_focus = None;
+            }
 
             // Vertical movement (line / half-page / full-page)
             KeyCode::Up | KeyCode::Char('k') => self.move_vert(-1),
             KeyCode::Down | KeyCode::Char('j') => self.move_vert(1),
-            KeyCode::Char('u') if ctrl => self.move_vert(-self.half_page()),
-            KeyCode::Char('d') if ctrl => self.move_vert(self.half_page()),
-            KeyCode::Char('b') if ctrl => self.move_vert(-self.full_page()),
-            KeyCode::Char('f') if ctrl => self.move_vert(self.full_page()),
+            KeyCode::Char('U') => self.move_vert(-self.half_page()),
+            KeyCode::Char('D') => self.move_vert(self.half_page()),
             KeyCode::PageUp => self.move_vert(-self.full_page()),
             KeyCode::PageDown => self.move_vert(self.full_page()),
             KeyCode::Char('G') | KeyCode::End => self.goto_bottom(),
@@ -123,12 +128,19 @@ impl App {
                 }
             }
 
-            KeyCode::Char(' ') | KeyCode::Enter => {
+            KeyCode::Char(' ') => {
                 if self.focus == Panel::Tree {
                     self.tree.toggle_expanded();
-                    self.card_scroll = 0;
+                    self.reset_card_view();
                 }
             }
+            KeyCode::Enter => match self.focus {
+                Panel::Tree => {
+                    self.tree.toggle_expanded();
+                    self.reset_card_view();
+                }
+                Panel::Card => self.open_focused_link(),
+            },
             KeyCode::Char('d') => self.toggle_card(),
             KeyCode::Char('/') => {
                 self.tree.search_mode = true;
@@ -137,9 +149,47 @@ impl App {
             KeyCode::Esc => {
                 self.show_card = false;
                 self.focus = Panel::Tree;
+                self.link_focus = None;
             }
             _ => {}
         }
+    }
+
+    /// URLs available on the focused unit (source page + any links in notes).
+    pub fn current_links(&self) -> Vec<String> {
+        let mut out: Vec<String> = Vec::new();
+        if let Some(node) = self.tree.focused_node() {
+            if let Some(u) = node.meta_str("sourceUrl") {
+                if u.starts_with("http") {
+                    out.push(u.to_string());
+                }
+            }
+            if let Some(notes) = node.meta_str("notes") {
+                for tok in notes.split_whitespace() {
+                    let t = tok.trim_matches(|c: char| {
+                        !(c.is_ascii_alphanumeric()
+                            || matches!(c, ':' | '/' | '.' | '-' | '_' | '?' | '=' | '&' | '#' | '%' | '+' | '~'))
+                    });
+                    if t.starts_with("http") && !out.iter().any(|e| e == t) {
+                        out.push(t.to_string());
+                    }
+                }
+            }
+        }
+        out
+    }
+
+    fn open_focused_link(&self) {
+        if let Some(i) = self.link_focus {
+            if let Some(url) = self.current_links().get(i) {
+                open_url(url);
+            }
+        }
+    }
+
+    fn reset_card_view(&mut self) {
+        self.card_scroll = 0;
+        self.link_focus = None;
     }
 
     fn half_page(&self) -> isize {
@@ -162,7 +212,7 @@ impl App {
         match self.focus {
             Panel::Tree => {
                 self.tree.move_focus(delta);
-                self.card_scroll = 0;
+                self.reset_card_view();
             }
             Panel::Card => self.scroll_card(delta),
         }
@@ -181,7 +231,7 @@ impl App {
         match self.focus {
             Panel::Tree => {
                 self.tree.focused_idx = 0;
-                self.card_scroll = 0;
+                self.reset_card_view();
             }
             Panel::Card => self.card_scroll = 0,
         }
@@ -191,7 +241,7 @@ impl App {
         match self.focus {
             Panel::Tree => {
                 self.tree.focused_idx = self.tree.flat_list.len().saturating_sub(1);
-                self.card_scroll = 0;
+                self.reset_card_view();
             }
             Panel::Card => {
                 let max = self
@@ -206,12 +256,14 @@ impl App {
     fn toggle_card(&mut self) {
         self.show_card = !self.show_card;
         if self.show_card {
-            self.card_scroll = 0;
+            self.reset_card_view();
         } else {
             self.focus = Panel::Tree;
+            self.link_focus = None;
         }
     }
 
+    /// Tab: Tree → Card → cycle each link → back to Tree.
     fn cycle_focus(&mut self) {
         match self.focus {
             Panel::Tree => {
@@ -220,8 +272,19 @@ impl App {
                     self.card_scroll = 0;
                 }
                 self.focus = Panel::Card;
+                self.link_focus = None;
             }
-            Panel::Card => self.focus = Panel::Tree,
+            Panel::Card => {
+                let n_links = self.current_links().len();
+                match self.link_focus {
+                    None if n_links > 0 => self.link_focus = Some(0),
+                    Some(i) if i + 1 < n_links => self.link_focus = Some(i + 1),
+                    _ => {
+                        self.focus = Panel::Tree;
+                        self.link_focus = None;
+                    }
+                }
+            }
         }
     }
 
@@ -246,4 +309,23 @@ impl App {
             _ => {}
         }
     }
+}
+
+/// Open a URL in the user's default browser (best-effort, non-blocking).
+fn open_url(url: &str) {
+    use std::process::Command;
+    let _ = {
+        #[cfg(target_os = "windows")]
+        {
+            Command::new("cmd").args(["/C", "start", "", url]).spawn()
+        }
+        #[cfg(target_os = "macos")]
+        {
+            Command::new("open").arg(url).spawn()
+        }
+        #[cfg(all(unix, not(target_os = "macos")))]
+        {
+            Command::new("xdg-open").arg(url).spawn()
+        }
+    };
 }

@@ -27,7 +27,7 @@ pub fn render(f: &mut Frame, app: &App) {
     let show_constellation = size.height >= 18;
 
     let rows = if show_constellation {
-        let const_h = (size.height / 3).clamp(6, 14);
+        let const_h = (size.height * 2 / 5).clamp(8, 18);
         Layout::default()
             .direction(Direction::Vertical)
             .constraints([

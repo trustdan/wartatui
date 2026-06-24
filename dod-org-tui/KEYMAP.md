@@ -11,17 +11,24 @@ and start thinking in relationships. Phase numbers note when each binding lands.
 | `↑` / `k` | move focus up | 1 |
 | `→` / `l` | expand branch, or jump to first child | 1 |
 | `←` / `h` | collapse branch / jump to parent / leave card | 1 |
-| `Ctrl+d` / `Ctrl+u` | half-page down / up | 2 |
-| `Ctrl+f` / `Ctrl+b` | full-page down / up | 2 |
+| `D` / `U` | half-page down / up (Shift+d / Shift+u) | 2 |
 | `PageDn` / `PageUp` | full-page down / up | 2 |
 | `gg` / `Home` | jump to top | 2 |
 | `G` / `End` | jump to bottom | 2 |
-| `Tab` / `Shift+Tab` | move focus between tree and card | 2 |
 | `}` | next sibling | 4 |
 | `{` | previous sibling | 4 |
 
 Movement keys act on whichever panel has focus: the **tree** moves the
 selection; the **card** scrolls its contents.
+
+## Panels & links
+
+| Key | Action | Phase |
+| --- | --- | --- |
+| `Tab` | Tree → Card → cycle each link → back to Tree | 2 |
+| `Shift+Tab` | jump focus straight back to the tree | 2 |
+| `h` / `←` | (from card) return focus to the tree | 2 |
+| `Enter` | (on a selected link) open it in the browser | 2 |
 
 ## Cross-cutting (the point of the app)
 

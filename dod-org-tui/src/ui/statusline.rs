@@ -41,10 +41,8 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
         .unwrap_or_default();
 
     let hint = match app.focus {
-        Panel::Tree => {
-            "   hjkl move · ^d/^u page · gg/G ends · Tab→card · / search · q quit"
-        }
-        Panel::Card => "   j/k scroll · ^d/^u page · gg/G ends · Tab/h→tree · q quit",
+        Panel::Tree => "   hjkl move · D/U page · gg/G ends · Tab→card · / search · q quit",
+        Panel::Card => "   j/k scroll · D/U page · Tab→links · ↵ open · h→tree · q quit",
     };
 
     let line = Line::from(vec![

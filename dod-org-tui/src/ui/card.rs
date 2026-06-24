@@ -82,12 +82,37 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
         }
     }
 
-    if let Some(url) = node.meta_str("sourceUrl") {
+    // Hyperlinks — Tab into the card cycles them; Enter opens the selected one.
+    let links = app.current_links();
+    if !links.is_empty() {
         lines.push(Line::from(""));
         lines.push(Line::from(Span::styled(
-            url.to_string(),
-            Style::default().fg(Color::Rgb(90, 140, 190)).underlined(),
+            "LINKS  (Tab to select · ↵ open)",
+            Style::default().fg(Color::Rgb(110, 118, 130)).bold(),
         )));
+        for (i, url) in links.iter().enumerate() {
+            let selected = app.focus == Panel::Card && app.link_focus == Some(i);
+            if selected {
+                lines.push(Line::from(vec![
+                    Span::styled(
+                        format!(" {} ", url),
+                        Style::default()
+                            .fg(Color::Black)
+                            .bg(Color::Rgb(120, 200, 255))
+                            .bold(),
+                    ),
+                    Span::styled(
+                        "  ↵ open",
+                        Style::default().fg(Color::Rgb(120, 200, 255)).bold(),
+                    ),
+                ]));
+            } else {
+                lines.push(Line::from(Span::styled(
+                    url.clone(),
+                    Style::default().fg(Color::Rgb(90, 140, 190)).underlined(),
+                )));
+            }
+        }
     }
 
     let focused = app.focus == Panel::Card;
