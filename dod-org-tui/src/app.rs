@@ -1,6 +1,7 @@
 //! Application state and input handling.
 
 use crate::anim::{self, Clock};
+use crate::layout_radial::{self, Positions};
 use crate::model::{OrgData, OrgEdge, OrgMeta};
 use crate::tree::TreeState;
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
@@ -22,11 +23,14 @@ pub struct App {
     pub show_card: bool,
     pub clock: Clock,
     pub should_quit: bool,
+    /// Radial positions for the constellation (computed once).
+    pub positions: Positions,
 }
 
 impl App {
     pub fn new(data: OrgData) -> Self {
         let tree = TreeState::new(&data);
+        let positions = layout_radial::compute(&tree);
         App {
             tree,
             meta: data.meta,
@@ -35,6 +39,7 @@ impl App {
             show_card: false,
             clock: Clock::new(),
             should_quit: false,
+            positions,
         }
     }
 

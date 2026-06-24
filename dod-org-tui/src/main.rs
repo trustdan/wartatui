@@ -2,6 +2,7 @@
 
 mod anim;
 mod app;
+mod layout_radial;
 mod model;
 mod theme;
 mod tree;

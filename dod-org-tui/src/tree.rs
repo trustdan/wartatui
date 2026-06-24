@@ -170,6 +170,23 @@ impl TreeState {
         self.nodes.keys().map(|id| self.depth_of(id)).max().unwrap_or(0)
     }
 
+    /// Node ids from root down to the given node (inclusive).
+    pub fn ancestry(&self, id: &str) -> Vec<String> {
+        let mut chain = Vec::new();
+        let mut cur = Some(id.to_string());
+        while let Some(cid) = cur {
+            match self.nodes.get(&cid) {
+                Some(node) => {
+                    chain.push(cid.clone());
+                    cur = node.data.parent.clone();
+                }
+                None => break,
+            }
+        }
+        chain.reverse();
+        chain
+    }
+
     /// Labels from root down to the given node.
     pub fn breadcrumb(&self, id: &str) -> Vec<String> {
         let mut chain = Vec::new();

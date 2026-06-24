@@ -2,6 +2,7 @@
 
 mod banner;
 mod card;
+mod constellation;
 mod statusline;
 mod tree_view;
 
@@ -12,15 +13,30 @@ use ratatui::Frame;
 pub fn render(f: &mut Frame, app: &App) {
     let size = f.size();
 
-    // banner / main / status
-    let rows = Layout::default()
-        .direction(Direction::Vertical)
-        .constraints([
-            Constraint::Length(3),
-            Constraint::Min(1),
-            Constraint::Length(1),
-        ])
-        .split(size);
+    // Only show the constellation when there's vertical room for it.
+    let show_constellation = size.height >= 18;
+
+    let rows = if show_constellation {
+        let const_h = (size.height / 3).clamp(6, 14);
+        Layout::default()
+            .direction(Direction::Vertical)
+            .constraints([
+                Constraint::Length(3),       // banner
+                Constraint::Min(6),          // main (tree + card)
+                Constraint::Length(const_h), // constellation
+                Constraint::Length(1),       // status
+            ])
+            .split(size)
+    } else {
+        Layout::default()
+            .direction(Direction::Vertical)
+            .constraints([
+                Constraint::Length(3),
+                Constraint::Min(1),
+                Constraint::Length(1),
+            ])
+            .split(size)
+    };
 
     banner::render(f, app, rows[0]);
 
@@ -41,5 +57,10 @@ pub fn render(f: &mut Frame, app: &App) {
         card::render(f, app, cols[1]);
     }
 
-    statusline::render(f, app, rows[2]);
+    if show_constellation {
+        constellation::render(f, app, rows[2]);
+        statusline::render(f, app, rows[3]);
+    } else {
+        statusline::render(f, app, rows[2]);
+    }
 }
