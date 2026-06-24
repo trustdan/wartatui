@@ -34,15 +34,18 @@ After this it already moves.
 - [x] Existing nav still works (hjkl/arrows, space/enter, `/` search, `d`, `q`)
 - [x] Bonus: robust `--data` flag + data-file auto-discovery
 
-## Phase 2 · Constellation  ·  ~1 session
+## Phase 2 · Constellation  ·  ✅ DONE (merged 2026-06-24)
 
 The signature visual.
 
-- [ ] `layout_radial.rs` computes deterministic (x,y) for all 149 nodes
-- [ ] Canvas minimap renders the full org as a star-field
-- [ ] Current node pulses; breadcrumb path to root is lit
-- [ ] Minimap stays readable at small terminal sizes (graceful degrade)
-- [ ] Selecting nodes in the tree moves the pulse smoothly in the minimap
+- [x] `layout_radial.rs` computes deterministic positions for all 149 nodes
+- [x] Canvas minimap renders the full org as a star-field
+- [x] Current node pulses; breadcrumb path to root is lit
+- [x] Minimap stays readable at small terminal sizes (graceful degrade)
+- [x] Selecting nodes in the tree moves the pulse smoothly in the minimap
+- [x] Bonus: panel focus + scrollable card w/ scrollbar; vim paging
+      (Shift+D/U, PageUp/Dn, gg/G); in-card link selection + browser open;
+      ellipse fill (no clipping); "you are here" corner orientation label
 
 ## Phase 3 · Dual-chain  ·  ~1–1.5 sessions
 
