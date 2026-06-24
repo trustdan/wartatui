@@ -62,6 +62,14 @@ impl TreeState {
     }
 
     pub fn rebuild_flat_list(&mut self) {
+        if !self.search_query.is_empty() {
+            // Re-apply the active search so expansion toggles work during search.
+            let saved = self.focused_idx;
+            self.apply_search_filter();
+            self.focused_idx = saved;
+            self.clamp_focus();
+            return;
+        }
         self.flat_list.clear();
         let root = self.root_id.clone();
         self.flatten(&root);
@@ -259,11 +267,22 @@ impl TreeState {
 
     pub fn update_search(&mut self, query: &str) {
         self.search_query = query.to_string();
-        let q = query.to_lowercase();
-        if q.is_empty() {
+        if query.is_empty() {
             self.rebuild_flat_list();
             return;
         }
+        self.apply_search_filter();
+        self.focused_idx = 0;
+        self.clamp_focus();
+    }
+
+    /// Build `flat_list` from the current `search_query` without touching `focused_idx`.
+    fn apply_search_filter(&mut self) {
+        let q = self.search_query.to_lowercase();
+        if q.is_empty() {
+            return;
+        }
+
         let matches: HashSet<String> = self
             .nodes
             .values()
@@ -275,32 +294,51 @@ impl TreeState {
             .collect();
 
         let mut visible: HashSet<String> = HashSet::new();
-        for m in matches.iter() {
+        for m in &matches {
+            // Include the match itself.
             visible.insert(m.clone());
+            // Include all ancestors so the path to the match is shown.
             let mut cur = self.nodes.get(m).and_then(|n| n.data.parent.clone());
             while let Some(pid) = cur {
                 visible.insert(pid.clone());
                 cur = self.nodes.get(&pid).and_then(|n| n.data.parent.clone());
             }
+            // Include all descendants so the full subtree is shown.
+            self.collect_descendants(m, &mut visible);
         }
 
         self.flat_list.clear();
         let root = self.root_id.clone();
-        self.flatten_visible(&root, &visible);
-        self.focused_idx = 0;
+        self.flatten_visible(&root, &visible, &matches);
     }
 
-    fn flatten_visible(&mut self, id: &str, visible: &HashSet<String>) {
+    /// Recursively add all descendants of `id` to `out`.
+    fn collect_descendants(&self, id: &str, out: &mut HashSet<String>) {
+        if let Some(n) = self.nodes.get(id) {
+            for child in &n.children {
+                out.insert(child.clone());
+                self.collect_descendants(child, out);
+            }
+        }
+    }
+
+    /// Flatten `visible` nodes into `flat_list`.
+    /// Direct matches are force-expanded; all other nodes respect their `expanded` flag
+    /// so the user can collapse subtrees of a matched header.
+    fn flatten_visible(&mut self, id: &str, visible: &HashSet<String>, matches: &HashSet<String>) {
         if !visible.contains(id) {
             return;
         }
         self.flat_list.push(id.to_string());
-        let children = match self.nodes.get(id) {
-            Some(n) => n.children.clone(),
+        let (expanded, children) = match self.nodes.get(id) {
+            Some(n) => (n.expanded, n.children.clone()),
             None => return,
         };
-        for child in children.iter() {
-            self.flatten_visible(child, visible);
+        // Force-expand direct match nodes; respect expansion for all others.
+        if expanded || matches.contains(id) {
+            for child in &children {
+                self.flatten_visible(child, visible, matches);
+            }
         }
     }
 
