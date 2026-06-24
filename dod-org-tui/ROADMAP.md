@@ -59,15 +59,15 @@ The centerpiece.
 - [x] Jump auto-expands the target's ancestors and refocuses correctly
 - [x] Bonus: visible comet streak with fading trail + destination flash
 
-## Phase 4 · Vim power-moves  ·  ~0.5–1 session
+## Phase 4 · Vim power-moves  ·  ✅ DONE (merged 2026-06-24)
 
-- [ ] `gg` / `G` top / bottom
-- [ ] `{` / `}` prev / next sibling
-- [ ] `[` / `]` prev / next node of the same `type` (cross-cutting)
-- [ ] `m{a-z}` set mark, `'{a-z}` jump to mark
-- [ ] `zM` / `zR` / `za` collapse all / expand all / toggle fold
-- [ ] `n` / `N` next / prev search match
-- [ ] All bindings match [KEYMAP.md](KEYMAP.md) exactly
+- [x] `gg` / `G` top / bottom (landed in Phase 2)
+- [x] `{` / `}` prev / next sibling
+- [x] `[` / `]` prev / next node of the same `type` (cross-cutting)
+- [x] `m{a-z}` set mark, `'{a-z}` jump to mark
+- [x] `zM` / `zR` / `za` collapse all / expand all / toggle fold
+- [x] `n` / `N` next / prev search match
+- [x] All bindings match [KEYMAP.md](KEYMAP.md) exactly
 
 ## Phase 5 · Polish  ·  ~0.5–1+ session (open-ended)
 
