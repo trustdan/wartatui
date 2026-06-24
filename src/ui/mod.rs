@@ -3,6 +3,7 @@
 mod banner;
 mod card;
 mod constellation;
+mod help;
 mod relations;
 mod statusline;
 mod tree_view;
@@ -79,5 +80,10 @@ pub fn render(f: &mut Frame, app: &App) {
         statusline::render(f, app, rows[3]);
     } else {
         statusline::render(f, app, rows[2]);
+    }
+
+    // Help overlay rendered last so it floats above everything.
+    if app.show_help {
+        help::render(f, size);
     }
 }

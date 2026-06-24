@@ -63,6 +63,10 @@ pub struct App {
     pub transition: Option<Transition>,
     /// When true, all motion and animation is suppressed (--no-anim).
     pub no_anim: bool,
+    /// When true, the help overlay is shown.
+    pub show_help: bool,
+    /// Brief confirmation after `m{x}`: (letter, clock-time-set). Shown for 1.5 s.
+    pub mark_flash: Option<(char, f32)>,
 
     // Viewport sizes, written by the renderer each frame so paging matches
     // what's actually on screen.
@@ -94,6 +98,8 @@ impl App {
             positions,
             transition: None,
             no_anim,
+            show_help: false,
+            mark_flash: None,
             tree_viewport: Cell::new(10),
             card_viewport: Cell::new(10),
             card_lines: Cell::new(0),
@@ -112,6 +118,17 @@ impl App {
     }
 
     pub fn handle_key(&mut self, key: KeyEvent) {
+        // Help overlay intercepts all keys — only quit passes through.
+        if self.show_help {
+            let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
+            match key.code {
+                KeyCode::Char('q') | KeyCode::Char('Q') => self.should_quit = true,
+                KeyCode::Char('c') if ctrl => self.should_quit = true,
+                _ => self.show_help = false,
+            }
+            return;
+        }
+
         if self.tree.search_mode {
             self.handle_search_key(key);
             return;
@@ -144,7 +161,7 @@ impl App {
                     self.pending = Pending::SetMark;
                     return;
                 }
-                KeyCode::Char('\'') => {
+                KeyCode::Char('\'') | KeyCode::Char('`') => {
                     self.pending = Pending::JumpMark;
                     return;
                 }
@@ -156,6 +173,9 @@ impl App {
             KeyCode::Char('q') | KeyCode::Char('Q') => self.should_quit = true,
             KeyCode::Char('c') if ctrl => self.should_quit = true,
 
+            // Open help overlay.
+            KeyCode::Char('?') | KeyCode::Char('i') => self.show_help = true,
+
             // Panel focus
             KeyCode::Tab => self.cycle_focus(),
             KeyCode::BackTab => {
@@ -166,6 +186,9 @@ impl App {
             // Vertical movement (line / half-page / full-page)
             KeyCode::Up | KeyCode::Char('k') => self.move_vert(-1),
             KeyCode::Down | KeyCode::Char('j') => self.move_vert(1),
+            // Ctrl+D/U (vim standard) and Shift+D/U (both work).
+            KeyCode::Char('u') if ctrl => self.move_vert(-self.half_page()),
+            KeyCode::Char('d') if ctrl => self.move_vert(self.half_page()),
             KeyCode::Char('U') => self.move_vert(-self.half_page()),
             KeyCode::Char('D') => self.move_vert(self.half_page()),
             KeyCode::PageUp => self.move_vert(-self.full_page()),
@@ -215,6 +238,7 @@ impl App {
                 self.tree.search_query.clear();
             }
             KeyCode::Esc => {
+                self.show_help = false;
                 self.show_card = false;
                 self.focus = Panel::Tree;
                 self.link_focus = None;
@@ -257,8 +281,10 @@ impl App {
             Pending::SetMark => {
                 if let KeyCode::Char(c) = key.code {
                     if c.is_ascii_alphabetic() {
+                        let letter = c.to_ascii_lowercase();
                         if let Some(id) = self.tree.focused_id().cloned() {
-                            self.marks.insert(c.to_ascii_lowercase(), id);
+                            self.marks.insert(letter, id);
+                            self.mark_flash = Some((letter, self.clock.elapsed()));
                         }
                         return true;
                     }
