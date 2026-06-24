@@ -17,21 +17,22 @@ engineering-weeks. The real clock is review + taste iteration, not my typing.
 
 ---
 
-## Phase 1 · Foundation  ·  ~1 session
+## Phase 1 · Foundation  ·  ✅ DONE (merged 2026-06-24)
 
 Module split, the frame-clock render loop, the color system, and the boot cascade.
 After this it already moves.
 
-- [ ] `main.rs` split into the modules in [DESIGN.md](DESIGN.md)
-- [ ] Frame-clock loop renders at a steady ~30fps with a global `elapsed` clock
-- [ ] Input decoupled from render (no missed/laggy keys)
-- [ ] RGB theme applied: each of 17 types colored per [THEME.md](THEME.md)
-- [ ] Echelon brightness shading visibly conveys depth
-- [ ] Boot sequence: banner flickers in, tree grows out from DoD (~1.5s)
-- [ ] Breathing cursor glow on the focused node
-- [ ] Tree + unit card render cleanly; card shows fullName, type, echelon,
+- [x] `main.rs` split into the modules in [DESIGN.md](DESIGN.md)
+- [x] Frame-clock loop renders at a steady ~30fps with a global `elapsed` clock
+- [x] Input decoupled from render (no missed/laggy keys)
+- [x] RGB theme applied: each of 17 types colored per [THEME.md](THEME.md)
+- [x] Echelon brightness shading visibly conveys depth
+- [x] Boot sequence: banner flickers in, tree grows out from DoD (~1.5s)
+- [x] Breathing cursor glow on the focused node
+- [x] Tree + unit card render cleanly; card shows fullName, type, echelon,
       statutory authority, HQ/commander from `notes`, confidence
-- [ ] Existing nav still works (hjkl/arrows, space/enter, `/` search, `d`, `q`)
+- [x] Existing nav still works (hjkl/arrows, space/enter, `/` search, `d`, `q`)
+- [x] Bonus: robust `--data` flag + data-file auto-discovery
 
 ## Phase 2 · Constellation  ·  ~1 session
 
@@ -82,4 +83,4 @@ The centerpiece.
 
 ## Open questions
 
-- _(none yet — add as they come up)_
+- *(none yet — add as they come up)*
