@@ -1,0 +1,2628 @@
+{
+  "nodes": [
+    {
+      "id": "department-of-defense",
+      "label": "DoD",
+      "fullName": "Department of Defense",
+      "echelon": 0,
+      "type": "department",
+      "parent": null,
+      "source": "Title 10 U.S.C. § 111",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Department of Defense Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Primary statutory name remains Department of Defense; 'Department of War' was added as a secondary ceremonial title by Executive Order on September 5, 2025."
+      }
+    },
+    {
+      "id": "secretary-of-defense",
+      "label": "SecDef",
+      "fullName": "Secretary of Defense",
+      "echelon": 1,
+      "type": "principal",
+      "parent": "department-of-defense",
+      "source": "10 U.S.C. § 113",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/About/",
+        "sourceTitle": "Secretary of Defense Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Current holder: Pete Hegseth. Known ceremonially as Secretary of War."
+      }
+    },
+    {
+      "id": "deputy-secretary-of-defense",
+      "label": "DepSecDef",
+      "fullName": "Deputy Secretary of Defense",
+      "echelon": 1,
+      "type": "principal",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 137",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/About/",
+        "sourceTitle": "Deputy Secretary of Defense Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Current holder: Steve Feinberg. Known ceremonially as Deputy Secretary of War."
+      }
+    },
+    {
+      "id": "under-secretary-policy",
+      "label": "USD(P)",
+      "fullName": "Under Secretary of Defense for Policy",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "10 U.S.C. § 134",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "sourceTitle": "Under Secretary of Defense for Policy Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Current holder: Elbridge Colby. Formulates national security and defense policy."
+      }
+    },
+    {
+      "id": "under-secretary-research-engineering",
+      "label": "USD(R&E)",
+      "fullName": "Under Secretary of Defense for Research and Engineering",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "10 U.S.C. § 133a",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Under Secretary of Defense for Research and Engineering Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Current holder: Emil Michael. Serves as Chief Technology Officer."
+      }
+    },
+    {
+      "id": "under-secretary-acquisition-sustainment",
+      "label": "USD(A&S)",
+      "fullName": "Under Secretary of Defense for Acquisition and Sustainment",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "10 U.S.C. § 133b",
+      "meta": {
+        "sourceUrl": "https://www.acq.osd.mil/",
+        "sourceTitle": "Under Secretary of Defense for Acquisition and Sustainment Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Defense Acquisition Executive. Current office holder: Michael P. Duffey."
+      }
+    },
+    {
+      "id": "under-secretary-comptroller",
+      "label": "USD(C)",
+      "fullName": "Under Secretary of Defense (Comptroller) / Chief Financial Officer",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "10 U.S.C. § 135",
+      "meta": {
+        "sourceUrl": "https://comptroller.defense.gov/",
+        "sourceTitle": "Under Secretary of Defense (Comptroller) / Chief Financial Officer Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Current holder: Jules Hurst III. Serves as Chief Financial Officer."
+      }
+    },
+    {
+      "id": "under-secretary-personnel-readiness",
+      "label": "USD(P&R)",
+      "fullName": "Under Secretary of Defense for Personnel and Readiness",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "10 U.S.C. § 136",
+      "meta": {
+        "sourceUrl": "https://prhome.defense.gov/",
+        "sourceTitle": "Under Secretary of Defense for Personnel and Readiness Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Manages total force readiness, health, and personnel matters."
+      }
+    },
+    {
+      "id": "under-secretary-intelligence-security",
+      "label": "USD(I&S)",
+      "fullName": "Under Secretary of Defense for Intelligence and Security",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "10 U.S.C. § 137",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Under Secretary of Defense for Intelligence and Security Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Manages defense intelligence and security enterprises."
+      }
+    },
+    {
+      "id": "chief-digital-ai-office",
+      "label": "CDAO",
+      "fullName": "Chief Digital and Artificial Intelligence Office",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "DoD Directive 5147.01",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Chief Digital and Artificial Intelligence Office Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Coordinates enterprise artificial intelligence, data, and analytics."
+      }
+    },
+    {
+      "id": "defense-innovation-unit",
+      "label": "DIU",
+      "fullName": "Defense Innovation Unit",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "DoD Directive 5105.85",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Defense Innovation Unit Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Accelerates commercial tech transition to the military; directly reports to SecDef."
+      }
+    },
+    {
+      "id": "office-strategic-capital",
+      "label": "OSC",
+      "fullName": "Office of Strategic Capital",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "under-secretary-research-engineering",
+      "source": "DoD Directive 5137.02",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Office of Strategic Capital Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Formed to crowd-in private capital to critical defense technologies."
+      }
+    },
+    {
+      "id": "strategic-capabilities-office",
+      "label": "SCO",
+      "fullName": "Strategic Capabilities Office",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "deputy-secretary-of-defense",
+      "source": "NDAA FY 2020",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Strategic Capabilities Office Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Repurposes existing platforms to counter strategic threats; reports to DepSecDef."
+      }
+    },
+    {
+      "id": "cost-assessment-program-evaluation",
+      "label": "CAPE",
+      "fullName": "Director of Cost Assessment and Program Evaluation",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 139a",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Director of Cost Assessment and Program Evaluation Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Principal advisor to SecDef for independent program analysis and cost estimation."
+      }
+    },
+    {
+      "id": "operational-test-evaluation",
+      "label": "DOT&E",
+      "fullName": "Director of Operational Test and Evaluation",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 139",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Director of Operational Test and Evaluation Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Reports directly to SecDef on operational test and evaluation matters."
+      }
+    },
+    {
+      "id": "chief-information-officer",
+      "label": "DoD CIO",
+      "fullName": "Chief Information Officer of the Department of Defense",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 142",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Chief Information Officer of the Department of Defense Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Information technology, cloud, network, and spectrum spectrum advisor."
+      }
+    },
+    {
+      "id": "general-counsel-defense",
+      "label": "GC DoD",
+      "fullName": "General Counsel of the Department of Defense",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 140",
+      "meta": {
+        "sourceUrl": "https://ogc.osd.mil/",
+        "sourceTitle": "General Counsel of the Department of Defense Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Principal legal officer of the Department."
+      }
+    },
+    {
+      "id": "inspector-general-defense",
+      "label": "DoD IG",
+      "fullName": "Inspector General of the Department of Defense",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "Inspector General Act of 1978",
+      "meta": {
+        "sourceUrl": "https://www.dodig.mil/",
+        "sourceTitle": "Inspector General of the Department of Defense Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Statutorily independent, but placed within OSD for administrative oversight."
+      }
+    },
+    {
+      "id": "director-administration-management",
+      "label": "DA&M",
+      "fullName": "Director of Administration and Management",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 143",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Director of Administration and Management Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Advises SecDef on administrative, organizational, and security policy matters."
+      }
+    },
+    {
+      "id": "chairman-joint-chiefs",
+      "label": "CJCS",
+      "fullName": "Chairman of the Joint Chiefs of Staff",
+      "echelon": 2,
+      "type": "joint",
+      "parent": "joint-chiefs-of-staff",
+      "source": "10 U.S.C. § 151",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Chairman of the Joint Chiefs of Staff Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Principal military advisor to the President and SecDef; strictly advisory. Current holder: Gen. Dan Caine."
+      }
+    },
+    {
+      "id": "vice-chairman-joint-chiefs",
+      "label": "VCJCS",
+      "fullName": "Vice Chairman of the Joint Chiefs of Staff",
+      "echelon": 2,
+      "type": "joint",
+      "parent": "joint-chiefs-of-staff",
+      "source": "10 U.S.C. § 154",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Vice Chairman of the Joint Chiefs of Staff Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Assists the CJCS. Current holder: Gen. Christopher J. Mahoney."
+      }
+    },
+    {
+      "id": "joint-chiefs-of-staff",
+      "label": "JCS",
+      "fullName": "Joint Chiefs of Staff",
+      "echelon": 2,
+      "type": "joint",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 151",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Chiefs of Staff Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Advisory body consisting of CJCS, VCJCS, and Service Chiefs."
+      }
+    },
+    {
+      "id": "joint-staff",
+      "label": "Joint Staff",
+      "fullName": "The Joint Staff",
+      "echelon": 2,
+      "type": "joint",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 155",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "The Joint Staff Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Managed by the Director of the Joint Staff (DJS)."
+      }
+    },
+    {
+      "id": "us-africa-command",
+      "label": "USAFRICOM",
+      "fullName": "United States Africa Command",
+      "echelon": 2,
+      "type": "cocom-geo",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.africom.mil/",
+        "sourceTitle": "United States Africa Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Geographic CCMD. HQ: Kelley Barracks, Stuttgart, Germany. Commander: Gen. Dagvin R.M. Anderson."
+      }
+    },
+    {
+      "id": "us-central-command",
+      "label": "USCENTCOM",
+      "fullName": "United States Central Command",
+      "echelon": 2,
+      "type": "cocom-geo",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.centcom.mil/",
+        "sourceTitle": "United States Central Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Geographic CCMD. HQ: MacDill AFB, FL. Commander: Admiral Brad Cooper."
+      }
+    },
+    {
+      "id": "us-european-command",
+      "label": "USEUCOM",
+      "fullName": "United States European Command",
+      "echelon": 2,
+      "type": "cocom-geo",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.eucom.mil/",
+        "sourceTitle": "United States European Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Geographic CCMD. HQ: Patch Barracks, Stuttgart, Germany. Commander: Gen. Alexus G. Grynkewich."
+      }
+    },
+    {
+      "id": "us-indo-pacific-command",
+      "label": "USINDOPACOM",
+      "fullName": "United States Indo-Pacific Command",
+      "echelon": 2,
+      "type": "cocom-geo",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.pacom.mil/",
+        "sourceTitle": "United States Indo-Pacific Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Geographic CCMD. HQ: Camp H.M. Smith, HI. Commander: Admiral Samuel Paparo."
+      }
+    },
+    {
+      "id": "us-northern-command",
+      "label": "USNORTHCOM",
+      "fullName": "United States Northern Command",
+      "echelon": 2,
+      "type": "cocom-geo",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.northcom.mil/",
+        "sourceTitle": "United States Northern Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Geographic CCMD. HQ: Peterson AFB, CO. Commander: Gen. Gregory M. Guillot."
+      }
+    },
+    {
+      "id": "us-southern-command",
+      "label": "USSOUTHCOM",
+      "fullName": "United States Southern Command",
+      "echelon": 2,
+      "type": "cocom-geo",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.southcom.mil/",
+        "sourceTitle": "United States Southern Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Geographic CCMD. HQ: Miami, FL. Commander: Gen. Francis L. Donovan."
+      }
+    },
+    {
+      "id": "us-space-command",
+      "label": "USSPACECOM",
+      "fullName": "United States Space Command",
+      "echelon": 2,
+      "type": "cocom-func",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.spacecom.mil/",
+        "sourceTitle": "United States Space Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Functional CCMD. HQ: Peterson AFB, CO (moving to Huntsville, AL). Commander: Gen. Stephen N. Whiting."
+      }
+    },
+    {
+      "id": "us-cyber-command",
+      "label": "USCYBERCOM",
+      "fullName": "United States Cyber Command",
+      "echelon": 2,
+      "type": "cocom-func",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.cybercom.mil/",
+        "sourceTitle": "United States Cyber Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Functional CCMD. HQ: Fort Meade, MD. Commander: Gen. Joshua M. Rudd."
+      }
+    },
+    {
+      "id": "us-special-operations-command",
+      "label": "USSOCOM",
+      "fullName": "United States Special Operations Command",
+      "echelon": 2,
+      "type": "cocom-func",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.socom.mil/",
+        "sourceTitle": "United States Special Operations Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Functional CCMD. HQ: MacDill AFB, FL. Commander: Admiral Frank M. Bradley."
+      }
+    },
+    {
+      "id": "us-strategic-command",
+      "label": "USSTRATCOM",
+      "fullName": "United States Strategic Command",
+      "echelon": 2,
+      "type": "cocom-func",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.stratcom.mil/",
+        "sourceTitle": "United States Strategic Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Functional CCMD. HQ: Offutt AFB, NE. Commander: Admiral Richard A. Correll."
+      }
+    },
+    {
+      "id": "us-transportation-command",
+      "label": "USTRANSCOM",
+      "fullName": "United States Transportation Command",
+      "echelon": 2,
+      "type": "cocom-func",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 161",
+      "meta": {
+        "sourceUrl": "https://www.transcom.mil/",
+        "sourceTitle": "United States Transportation Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Functional CCMD. HQ: Scott AFB, IL. Commander: Gen. Randall Reed."
+      }
+    },
+    {
+      "id": "department-of-the-army",
+      "label": "DA",
+      "fullName": "Department of the Army",
+      "echelon": 2,
+      "type": "mildep",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 7011",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/",
+        "sourceTitle": "Department of the Army Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Secretariat level. Subordinate service is the United States Army."
+      }
+    },
+    {
+      "id": "department-of-the-navy",
+      "label": "DoN",
+      "fullName": "Department of the Navy",
+      "echelon": 2,
+      "type": "mildep",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 8011",
+      "meta": {
+        "sourceUrl": "https://www.navy.mil/",
+        "sourceTitle": "Department of the Navy Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Secretariat level. Subordinate services are Navy and Marine Corps."
+      }
+    },
+    {
+      "id": "department-of-the-air-force",
+      "label": "DAF",
+      "fullName": "Department of the Air Force",
+      "echelon": 2,
+      "type": "mildep",
+      "parent": "secretary-of-defense",
+      "source": "10 U.S.C. § 9011",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "Department of the Air Force Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Secretariat level. Subordinate services are Air Force and Space Force."
+      }
+    },
+    {
+      "id": "united-states-army",
+      "label": "USA",
+      "fullName": "United States Army",
+      "echelon": 3,
+      "type": "service",
+      "parent": "department-of-the-army",
+      "source": "10 U.S.C. § 7013",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/",
+        "sourceTitle": "United States Army Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Headed by the Chief of Staff of the Army (CSA); current acting holder: Gen. Christopher LaNeve."
+      }
+    },
+    {
+      "id": "united-states-navy",
+      "label": "USN",
+      "fullName": "United States Navy",
+      "echelon": 3,
+      "type": "service",
+      "parent": "department-of-the-navy",
+      "source": "10 U.S.C. § 8013",
+      "meta": {
+        "sourceUrl": "https://www.navy.mil/",
+        "sourceTitle": "United States Navy Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Headed by the Chief of Naval Operations (CNO); current holder: Admiral Daryl Caudle."
+      }
+    },
+    {
+      "id": "united-states-marine-corps",
+      "label": "USMC",
+      "fullName": "United States Marine Corps",
+      "echelon": 3,
+      "type": "service",
+      "parent": "department-of-the-navy",
+      "source": "10 U.S.C. § 8001",
+      "meta": {
+        "sourceUrl": "https://www.marines.mil/",
+        "sourceTitle": "United States Marine Corps Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Headed by the Commandant of the Marine Corps (CMC); current holder: Gen. Eric Smith."
+      }
+    },
+    {
+      "id": "united-states-air-force",
+      "label": "USAF",
+      "fullName": "United States Air Force",
+      "echelon": 3,
+      "type": "service",
+      "parent": "department-of-the-air-force",
+      "source": "10 U.S.C. § 9013",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "United States Air Force Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Headed by the Chief of Staff of the Air Force (CSAF); current holder: Gen. Kenneth S. Wilsbach."
+      }
+    },
+    {
+      "id": "united-states-space-force",
+      "label": "USSF",
+      "fullName": "United States Space Force",
+      "echelon": 3,
+      "type": "service",
+      "parent": "department-of-the-air-force",
+      "source": "10 U.S.C. § 9081",
+      "meta": {
+        "sourceUrl": "https://www.spaceforce.mil/",
+        "sourceTitle": "United States Space Force Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Headed by the Chief of Space Operations (CSO); current holder: Gen. B. Chance Saltzman."
+      }
+    },
+    {
+      "id": "director-joint-staff",
+      "label": "DJS",
+      "fullName": "Director of the Joint Staff",
+      "echelon": 3,
+      "type": "joint",
+      "parent": "joint-staff",
+      "source": "10 U.S.C. § 155",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Director of the Joint Staff Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "VADM Frederick W. Kacher leads the Joint Staff."
+      }
+    },
+    {
+      "id": "joint-staff-j1",
+      "label": "J1",
+      "fullName": "Joint Staff Personnel and Manpower Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Personnel and Manpower Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Manages joint workforce and human resources."
+      }
+    },
+    {
+      "id": "joint-staff-j2",
+      "label": "J2",
+      "fullName": "Joint Staff Intelligence Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Intelligence Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Coordinates with DIA; provides intelligence support to JCS."
+      }
+    },
+    {
+      "id": "joint-staff-j3",
+      "label": "J3",
+      "fullName": "Joint Staff Operations Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Operations Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Oversees global operations monitoring and planning."
+      }
+    },
+    {
+      "id": "joint-staff-j4",
+      "label": "J4",
+      "fullName": "Joint Staff Logistics Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Logistics Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Handles strategic and joint logistics policy."
+      }
+    },
+    {
+      "id": "joint-staff-j5",
+      "label": "J5",
+      "fullName": "Joint Staff Strategic Plans and Policy Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Strategic Plans and Policy Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Formulates long-term strategy, plans, and military policies."
+      }
+    },
+    {
+      "id": "joint-staff-j6",
+      "label": "J6",
+      "fullName": "Joint Staff Command, Control, Communications, and Computers / Cyber Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Command, Control, Communications, and Computers / Cyber Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Advises on C4 networks and interoperability."
+      }
+    },
+    {
+      "id": "joint-staff-j7",
+      "label": "J7",
+      "fullName": "Joint Staff Joint Force Development Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/",
+        "sourceTitle": "Joint Staff Joint Force Development Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Responsible for doctrine, training, and military education."
+      }
+    },
+    {
+      "id": "joint-staff-j8",
+      "label": "J8",
+      "fullName": "Joint Staff Force Structure, Resources, and Assessment Directorate",
+      "echelon": 3,
+      "type": "directorate",
+      "parent": "joint-staff",
+      "source": "jcs.mil",
+      "meta": {
+        "sourceUrl": "https://www.jcs.mil/directorates/j8-force-structure-resources-assessment/",
+        "sourceTitle": "Joint Staff Force Structure, Resources, and Assessment Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Validates military requirements via JCIDS and JROC."
+      }
+    },
+    {
+      "id": "asd-strategy-plans-capabilities",
+      "label": "ASD(SPC)",
+      "fullName": "Assistant Secretary of Defense for Strategy, Plans, and Forces",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "DoD Directive 5111.39",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "sourceTitle": "Assistant Secretary of Defense for Strategy, Plans, and Capabilities Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Develops strategy, force planning, and nuclear posture."
+      }
+    },
+    {
+      "id": "asd-special-operations-low-intensity-conflict",
+      "label": "ASD(SO/LIC)",
+      "fullName": "Assistant Secretary of Defense for Special Operations and Low-Intensity Conflict",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "10 U.S.C. § 138b",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "sourceTitle": "Assistant Secretary of Defense for Special Operations and Low-Intensity Conflict Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Has statutory administrative oversight of USSOCOM forces."
+      }
+    },
+    {
+      "id": "asd-homeland-defense-hemispheric-affairs",
+      "label": "ASD(HD&HA)",
+      "fullName": "Assistant Secretary of Defense for Homeland Defense and Americas Security Affairs",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "DoD Directive 5111.43",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "sourceTitle": "Assistant Secretary of Defense for Homeland Defense and Hemispheric Affairs Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Formulates homeland defense and Western Hemisphere security policies."
+      }
+    },
+    {
+      "id": "asd-critical-technologies",
+      "label": "ASD(CT)",
+      "fullName": "Assistant Secretary of Defense for Critical Technologies",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-research-engineering",
+      "source": "DoD Restructuring 2024",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Assistant Secretary of Defense for Critical Technologies Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Responsible for transitioning critical technology areas. Current: Hon. Michael Dodd.",
+        "displayAlias": "Assistant Secretary of War for Critical Technologies"
+      }
+    },
+    {
+      "id": "asd-science-technology",
+      "label": "ASD(S&T)",
+      "fullName": "Assistant Secretary of Defense for Science and Technology",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-research-engineering",
+      "source": "cto.mil",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Assistant Secretary of Defense for Science and Technology Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Leads basic and applied science strategy. Current: Hon. Joseph Jewell.",
+        "displayAlias": "Assistant Secretary of War for Science and Technology"
+      }
+    },
+    {
+      "id": "asd-mission-capabilities",
+      "label": "ASD(MC)",
+      "fullName": "Assistant Secretary of Defense for Mission Capabilities",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-research-engineering",
+      "source": "cto.mil",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Assistant Secretary of Defense for Mission Capabilities Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Coordinates prototyping and mission engineering. Current: Mr. Jeremy Verbout (PTDO).",
+        "displayAlias": "Assistant Secretary of War for Mission Capabilities"
+      }
+    },
+    {
+      "id": "asd-acquisition",
+      "label": "ASD(Acq)",
+      "fullName": "Assistant Secretary of Defense for Acquisition",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "acq.osd.mil",
+      "meta": {
+        "sourceUrl": "https://www.acq.osd.mil/organizations.html",
+        "sourceTitle": "Assistant Secretary of Defense for Acquisition Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Provides oversight of the defense acquisition system.",
+        "displayAlias": "Assistant Secretary of War for Acquisition"
+      }
+    },
+    {
+      "id": "asd-sustainment",
+      "label": "ASD(Sust)",
+      "fullName": "Assistant Secretary of Defense for Sustainment",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "acq.osd.mil",
+      "meta": {
+        "sourceUrl": "https://www.acq.osd.mil/organizations.html",
+        "sourceTitle": "Assistant Secretary of Defense for Sustainment Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Coordinates global logistics, supply, and maintenance. Current: Hon. Brian Birdwell.",
+        "displayAlias": "Assistant Secretary of War for Sustainment"
+      }
+    },
+    {
+      "id": "asd-energy-installations-environment",
+      "label": "ASD(EI&E)",
+      "fullName": "Assistant Secretary of Defense for Energy, Installations, and Environment",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "acq.osd.mil",
+      "meta": {
+        "sourceUrl": "https://www.acq.osd.mil/organizations.html",
+        "sourceTitle": "Assistant Secretary of Defense for Energy, Installations, and Environment Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Oversees military construction, environmental management, housing.",
+        "displayAlias": "Assistant Secretary of War for Energy, Installations, and Environment"
+      }
+    },
+    {
+      "id": "asd-industrial-base-policy",
+      "label": "ASD(IBP)",
+      "fullName": "Assistant Secretary of Defense for Industrial Base Policy",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "acq.osd.mil",
+      "meta": {
+        "sourceUrl": "https://www.acq.osd.mil/organizations.html",
+        "sourceTitle": "Assistant Secretary of Defense for Industrial Base Policy Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Coordinates defense industrial base strategy and supply chain security.",
+        "displayAlias": "Assistant Secretary of War for Industrial Base Policy"
+      }
+    },
+    {
+      "id": "asd-manpower-reserve-affairs",
+      "label": "ASD(M&RA)",
+      "fullName": "Assistant Secretary of Defense for Manpower and Reserve Affairs",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-personnel-readiness",
+      "source": "prhome.defense.gov",
+      "meta": {
+        "sourceUrl": "https://prhome.defense.gov/",
+        "sourceTitle": "Assistant Secretary of Defense for Manpower and Reserve Affairs Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Develops total force manpower policies."
+      }
+    },
+    {
+      "id": "asd-readiness",
+      "label": "ASD(R)",
+      "fullName": "Assistant Secretary of Defense for Readiness",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-personnel-readiness",
+      "source": "prhome.defense.gov",
+      "meta": {
+        "sourceUrl": "https://prhome.defense.gov/",
+        "sourceTitle": "Assistant Secretary of Defense for Readiness Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Coordinates joint training, education, and force readiness."
+      }
+    },
+    {
+      "id": "asd-health-affairs",
+      "label": "ASD(HA)",
+      "fullName": "Assistant Secretary of Defense for Health Affairs",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-personnel-readiness",
+      "source": "prhome.defense.gov",
+      "meta": {
+        "sourceUrl": "https://prhome.defense.gov/",
+        "sourceTitle": "Assistant Secretary of Defense for Health Affairs Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Manages DoD health policy. Current: Keith Bass."
+      }
+    },
+    {
+      "id": "army-forces-command",
+      "label": "FORSCOM",
+      "fullName": "United States Army Forces Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-army",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Forces Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Fort Liberty, NC. Prepares and deploys combat-ready land forces."
+      }
+    },
+    {
+      "id": "army-materiel-command",
+      "label": "AMC",
+      "fullName": "United States Army Materiel Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-army",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Materiel Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Redstone Arsenal, AL. Provides technology, acquisition support, and logistics."
+      }
+    },
+    {
+      "id": "army-transformation-training-command",
+      "label": "T2COM",
+      "fullName": "United States Army Transformation and Training Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-army",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Transformation and Training Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "medium",
+        "notes": "HQ: Austin, TX. Consolidated Futures Command and TRADOC in major 2026 restructure. Major 2026 restructure; verify against Army General Orders / official command-structure page before treating as high confidence."
+      }
+    },
+    {
+      "id": "army-cyber-command",
+      "label": "ARCYBER",
+      "fullName": "United States Army Cyber Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-army",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Cyber Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Fort Eisenhower, GA. Army component to USCYBERCOM."
+      }
+    },
+    {
+      "id": "army-special-operations-command",
+      "label": "USASOC",
+      "fullName": "United States Army Special Operations Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-army",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/usasoc",
+        "sourceTitle": "United States Army Special Operations Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Fort Liberty, NC. Army component of USSOCOM."
+      }
+    },
+    {
+      "id": "army-western-hemisphere-command",
+      "label": "USAWHC",
+      "fullName": "United States Army Western Hemisphere Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-army",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Western Hemisphere Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "medium",
+        "notes": "HQ: Fort Liberty, NC. Consolidated theater army role for NORTHCOM and SOUTHCOM. Major 2026 restructure; verify against Army General Orders / official command-structure page before treating as high confidence."
+      }
+    },
+    {
+      "id": "navy-fleet-forces-command",
+      "label": "USFFC",
+      "fullName": "United States Fleet Forces Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-navy",
+      "source": "navy.mil",
+      "meta": {
+        "sourceUrl": "https://www.navy.mil/",
+        "sourceTitle": "United States Fleet Forces Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Provides ready naval forces; naval component to USNORTHCOM."
+      }
+    },
+    {
+      "id": "navy-pacific-fleet",
+      "label": "USPACFLT",
+      "fullName": "United States Pacific Fleet",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-navy",
+      "source": "navy.mil",
+      "meta": {
+        "sourceUrl": "https://www.cpf.navy.mil/",
+        "sourceTitle": "United States Pacific Fleet Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Pearl Harbor, HI. Naval component to USINDOPACOM."
+      }
+    },
+    {
+      "id": "naval-intelligence-activity",
+      "label": "NIA",
+      "fullName": "Naval Intelligence Activity",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-navy",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://en.wikipedia.org/wiki/Naval_Intelligence_Activity",
+        "sourceTitle": "Naval Intelligence Activity Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "medium",
+        "notes": "Echelon II command reporting to OPNAV N2N6 to manage intelligence globally. Provenance is Wikipedia; replace with an official source before treating as high confidence."
+      }
+    },
+    {
+      "id": "air-combat-command",
+      "label": "ACC",
+      "fullName": "Air Combat Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "af.mil",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "Air Combat Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Primary provider of combat air forces."
+      }
+    },
+    {
+      "id": "air-mobility-command",
+      "label": "AMC",
+      "fullName": "Air Mobility Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "af.mil",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "Air Mobility Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Provides airlift, air refueling, and global transport."
+      }
+    },
+    {
+      "id": "air-force-global-strike-command",
+      "label": "AFGSC",
+      "fullName": "Air Force Global Strike Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "af.mil",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "Air Force Global Strike Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Sustains the air-based leg of the nuclear triad."
+      }
+    },
+    {
+      "id": "air-force-materiel-command",
+      "label": "AFMC",
+      "fullName": "Air Force Materiel Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "afmc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.afmc.af.mil/About-Us/Fact-Sheets/Display/Article/1563085/air-force-materiel-command/",
+        "sourceTitle": "Air Force Materiel Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Wright-Patterson AFB, OH. Manages lifecycle, technology and testing."
+      }
+    },
+    {
+      "id": "air-education-and-training-command",
+      "label": "AETC",
+      "fullName": "Air Education and Training Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "af.mil",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "Air Education and Training Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Recruits, trains, and educates Airmen."
+      }
+    },
+    {
+      "id": "air-force-reserve-command",
+      "label": "AFRC",
+      "fullName": "Air Force Reserve Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "af.mil",
+      "meta": {
+        "sourceUrl": "https://www.af.mil/",
+        "sourceTitle": "Air Force Reserve Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Manages Air Force Reserve units and resources."
+      }
+    },
+    {
+      "id": "air-force-special-operations-command",
+      "label": "AFSOC",
+      "fullName": "Air Force Special Operations Command",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "united-states-air-force",
+      "source": "afsoc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.afsoc.af.mil/About-Us/Fact-Sheets/Display/Article/162540/air-force-special-operations-command/",
+        "sourceTitle": "Air Force Special Operations Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Hurlburt Field, FL (near Wright, FL). Air Force component to USSOCOM."
+      }
+    },
+    {
+      "id": "cyber-national-mission-force",
+      "label": "CNMF",
+      "fullName": "Cyber National Mission Force",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "us-cyber-command",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://www.cybercom.mil/",
+        "sourceTitle": "Cyber National Mission Force Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Meade, MD. Subordinate unified command under USCYBERCOM."
+      }
+    },
+    {
+      "id": "joint-force-hq-dodin",
+      "label": "JFHQ-DODIN",
+      "fullName": "Joint Force Headquarters - Department of Defense Information Network",
+      "echelon": 3,
+      "type": "major-command",
+      "parent": "us-cyber-command",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://www.cybercom.mil/",
+        "sourceTitle": "Joint Force Headquarters - Department of Defense Information Network Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Meade, MD. Manages cybersecurity operations across the DoD enterprise network."
+      }
+    },
+    {
+      "id": "defense-advanced-research-projects-agency",
+      "label": "DARPA",
+      "fullName": "Defense Advanced Research Projects Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-research-engineering",
+      "source": "DoD Directive 5134.10",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Defense Advanced Research Projects Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Arlington, VA. High-risk military research agency."
+      }
+    },
+    {
+      "id": "missile-defense-agency",
+      "label": "MDA",
+      "fullName": "Missile Defense Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-research-engineering",
+      "source": "DoD Directive 5134.09",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Missile Defense Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Huntsville, AL / Pentagon. Oversees layered missile defense development."
+      }
+    },
+    {
+      "id": "defense-technical-information-center",
+      "label": "DTIC",
+      "fullName": "Defense Technical Information Center",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "under-secretary-research-engineering",
+      "source": "DoD Directive 5105.19",
+      "meta": {
+        "sourceUrl": "https://discover.dtic.mil/",
+        "sourceTitle": "Defense Technical Information Center Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Belvoir, VA. Repository for research data."
+      }
+    },
+    {
+      "id": "test-resource-management-center",
+      "label": "TRMC",
+      "fullName": "Defense Test Resource Management Center",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "under-secretary-research-engineering",
+      "source": "DoD Directive 5137.02",
+      "meta": {
+        "sourceUrl": "https://www.cto.mil/",
+        "sourceTitle": "Defense Test Resource Management Center Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Pentagon. Manages test and evaluation infrastructure."
+      }
+    },
+    {
+      "id": "defense-logistics-agency",
+      "label": "DLA",
+      "fullName": "Defense Logistics Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "DoD Directive 5105.22",
+      "meta": {
+        "sourceUrl": "https://www.dla.mil/",
+        "sourceTitle": "Defense Logistics Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Belvoir, VA. Handles military logistics and supply chains. Director: LTG Mark T. Simerly."
+      }
+    },
+    {
+      "id": "defense-contract-management-agency",
+      "label": "DCMA",
+      "fullName": "Defense Contract Management Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "DoD Directive 5105.64",
+      "meta": {
+        "sourceUrl": "https://www.dcma.mil/",
+        "sourceTitle": "Defense Contract Management Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Gregg-Adams, VA. Manages contract administrative support."
+      }
+    },
+    {
+      "id": "defense-threat-reduction-agency",
+      "label": "DTRA",
+      "fullName": "Defense Threat Reduction Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "DoD Directive 5105.62",
+      "meta": {
+        "sourceUrl": "https://www.dtra.mil/",
+        "sourceTitle": "Defense Threat Reduction Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Belvoir, VA. Counters chemical, biological, and nuclear threats."
+      }
+    },
+    {
+      "id": "office-local-defense-community-cooperation",
+      "label": "OLDCC",
+      "fullName": "Office of Local Defense Community Cooperation",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "under-secretary-acquisition-sustainment",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://oldcc.gov/",
+        "sourceTitle": "Office of Local Defense Community Cooperation Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Arlington, VA. Manages grant funding to military defense communities."
+      }
+    },
+    {
+      "id": "defense-contract-audit-agency",
+      "label": "DCAA",
+      "fullName": "Defense Contract Audit Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-comptroller",
+      "source": "DoD Directive 5105.36",
+      "meta": {
+        "sourceUrl": "https://comptroller.defense.gov/",
+        "sourceTitle": "Defense Contract Audit Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Belvoir, VA. Performs financial audits on defense contracts."
+      }
+    },
+    {
+      "id": "defense-finance-accounting-service",
+      "label": "DFAS",
+      "fullName": "Defense Finance and Accounting Service",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-comptroller",
+      "source": "DoD Directive 5118.05",
+      "meta": {
+        "sourceUrl": "https://www.dfas.mil/",
+        "sourceTitle": "Defense Finance and Accounting Service Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Indianapolis, IN / Columbus, OH. Handles financial and pay systems across DoD."
+      }
+    },
+    {
+      "id": "defense-health-agency",
+      "label": "DHA",
+      "fullName": "Defense Health Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-personnel-readiness",
+      "source": "DoD Directive 5105.77",
+      "meta": {
+        "sourceUrl": "https://health.mil/dha",
+        "sourceTitle": "Defense Health Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Falls Church, VA. Integrates military medical facilities and TRICARE."
+      }
+    },
+    {
+      "id": "defense-commissary-agency",
+      "label": "DeCA",
+      "fullName": "Defense Commissary Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-personnel-readiness",
+      "source": "DoD Directive 5105.55",
+      "meta": {
+        "sourceUrl": "https://www.commissaries.com/",
+        "sourceTitle": "Defense Commissary Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Gregg-Adams, VA. Manages commissary supermarkets."
+      }
+    },
+    {
+      "id": "department-of-defense-education-activity",
+      "label": "DoDEA",
+      "fullName": "Department of Defense Education Activity",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "under-secretary-personnel-readiness",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://www.dodea.edu",
+        "sourceTitle": "Department of Defense Education Activity Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Alexandria, VA. Operates primary/secondary schools for dependents. Known ceremonially as War Education Activity."
+      }
+    },
+    {
+      "id": "defense-security-cooperation-agency",
+      "label": "DSCA",
+      "fullName": "Defense Security Cooperation Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-policy",
+      "source": "DoD Directive 5105.65",
+      "meta": {
+        "sourceUrl": "https://samm.dsca.mil/",
+        "sourceTitle": "Defense Security Cooperation Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Pentagon. Manages security assistance and military sales."
+      }
+    },
+    {
+      "id": "defense-pow-mia-accounting-agency",
+      "label": "DPAA",
+      "fullName": "Defense POW/MIA Accounting Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-policy",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://www.dpaa.mil/",
+        "sourceTitle": "Defense POW/MIA Accounting Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Joint Base Pearl Harbor-Hickam, HI. Conducts recovery and identification missions."
+      }
+    },
+    {
+      "id": "defense-intelligence-agency",
+      "label": "DIA",
+      "fullName": "Defense Intelligence Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-intelligence-security",
+      "source": "DoD Directive 5105.21",
+      "meta": {
+        "sourceUrl": "https://www.dia.mil/",
+        "sourceTitle": "Defense Intelligence Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Joint Base Anacostia-Bolling, DC. Lead defense-wide intelligence agency."
+      }
+    },
+    {
+      "id": "national-security-agency",
+      "label": "NSA",
+      "fullName": "National Security Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-intelligence-security",
+      "source": "DoD Directive 5100.20",
+      "meta": {
+        "sourceUrl": "https://www.nsa.gov/",
+        "sourceTitle": "National Security Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Meade, MD. Lead national and military cryptologic agency."
+      }
+    },
+    {
+      "id": "national-geospatial-intelligence-agency",
+      "label": "NGA",
+      "fullName": "National Geospatial-Intelligence Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-intelligence-security",
+      "source": "DoD Directive 5105.60",
+      "meta": {
+        "sourceUrl": "https://www.nga.mil/",
+        "sourceTitle": "National Geospatial-Intelligence Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Springfield, VA. Provides geospatial imagery and analysis."
+      }
+    },
+    {
+      "id": "national-reconnaissance-office",
+      "label": "NRO",
+      "fullName": "National Reconnaissance Office",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-intelligence-security",
+      "source": "DoD Directive 5105.23",
+      "meta": {
+        "sourceUrl": "https://www.nro.gov/",
+        "sourceTitle": "National Reconnaissance Office Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Chantilly, VA. Builds and operates U.S. intelligence satellites."
+      }
+    },
+    {
+      "id": "defense-counterintelligence-security-agency",
+      "label": "DCSA",
+      "fullName": "Defense Counterintelligence and Security Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "under-secretary-intelligence-security",
+      "source": "EO 13869",
+      "meta": {
+        "sourceUrl": "https://www.dcsa.mil/",
+        "sourceTitle": "Defense Counterintelligence and Security Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Quantico, VA. Handles background vetting and industrial security."
+      }
+    },
+    {
+      "id": "defense-information-systems-agency",
+      "label": "DISA",
+      "fullName": "Defense Information Systems Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "chief-information-officer",
+      "source": "DoD Directive 5105.19",
+      "meta": {
+        "sourceUrl": "https://www.disa.mil/",
+        "sourceTitle": "Defense Information Systems Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Fort Meade, MD. Provides core IT, data networks, and combat communication support."
+      }
+    },
+    {
+      "id": "washington-headquarters-services",
+      "label": "WHS",
+      "fullName": "Washington Headquarters Services",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "director-administration-management",
+      "source": "DoD Directive 5110.04",
+      "meta": {
+        "sourceUrl": "https://www.whs.mil/",
+        "sourceTitle": "Washington Headquarters Services Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Pentagon. Manages OSD administrative services."
+      }
+    },
+    {
+      "id": "pentagon-force-protection-agency",
+      "label": "PFPA",
+      "fullName": "Pentagon Force Protection Agency",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "director-administration-management",
+      "source": "DoD Directive 5105.68",
+      "meta": {
+        "sourceUrl": "https://www.pfpa.mil/",
+        "sourceTitle": "Pentagon Force Protection Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Provides physical protection, law enforcement, and security for the Pentagon."
+      }
+    },
+    {
+      "id": "defense-legal-services-agency",
+      "label": "DLSA",
+      "fullName": "Defense Legal Services Agency",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "general-counsel-defense",
+      "source": "DoD Directive 5145.04",
+      "meta": {
+        "sourceUrl": "https://ogc.osd.mil/",
+        "sourceTitle": "Defense Legal Services Agency Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Provides legal services and oversight to defense agencies."
+      }
+    },
+    {
+      "id": "defense-media-activity",
+      "label": "DMA",
+      "fullName": "Defense Media Activity",
+      "echelon": 3,
+      "type": "field-activity",
+      "parent": "secretary-of-defense",
+      "source": "DoD Directive 5105.74",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/",
+        "sourceTitle": "Defense Media Activity Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Primary parent is the Assistant to the SecDef for Public Affairs."
+      }
+    },
+    {
+      "id": "national-guard-bureau",
+      "label": "NGB",
+      "fullName": "National Guard Bureau",
+      "echelon": 3,
+      "type": "agency",
+      "parent": "joint-staff",
+      "source": "10 U.S.C. § 10501",
+      "meta": {
+        "sourceUrl": "https://www.nationalguard.mil/",
+        "sourceTitle": "National Guard Bureau Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Joint activity; Chief of NGB (CNGB) is a member of the JCS. Current: Gen. Steven Nordhaus."
+      }
+    },
+    {
+      "id": "1st-special-operations-wing",
+      "label": "1st SOW",
+      "fullName": "1st Special Operations Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-force-special-operations-command",
+      "source": "hurlburt.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.hurlburt.af.mil/About-Us/Fact-Sheets/Fact-Sheets/Article/204524/1st-special-operations-wing/",
+        "sourceTitle": "1st Special Operations Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Hurlburt Field, FL. Primary Special Ops Wing."
+      }
+    },
+    {
+      "id": "24th-special-operations-wing",
+      "label": "24th SOW",
+      "fullName": "24th Special Operations Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-force-special-operations-command",
+      "source": "afsoc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.hurlburt.af.mil/About-Us/Fact-Sheets/Fact-Sheets/Article/2559811/air-force-special-operations-command/",
+        "sourceTitle": "24th Special Operations Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Hurlburt Field, FL. Only Special Tactics wing in USAF."
+      }
+    },
+    {
+      "id": "492nd-special-operations-wing",
+      "label": "492nd SOW",
+      "fullName": "492nd Special Operations Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-force-special-operations-command",
+      "source": "afsoc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.hurlburt.af.mil/About-Us/Fact-Sheets/Fact-Sheets/Article/2559811/air-force-special-operations-command/",
+        "sourceTitle": "492nd Special Operations Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Hurlburt Field, FL. Coordinates special ops training and education."
+      }
+    },
+    {
+      "id": "919th-special-operations-wing",
+      "label": "919th SOW",
+      "fullName": "919th Special Operations Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-force-reserve-command",
+      "source": "afsoc.af.mil",
+      "meta": {
+        "sourceUrl": "https://en.wikipedia.org/wiki/Air_Force_Special_Operations_Command",
+        "sourceTitle": "919th Special Operations Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "medium",
+        "notes": "Duke Field, FL. Air Force Reserve Special Operations Wing. Provenance is Wikipedia; replace with an official source before treating as high confidence."
+      }
+    },
+    {
+      "id": "air-force-test-center",
+      "label": "AFTC",
+      "fullName": "Air Force Test Center",
+      "echelon": 4,
+      "type": "center",
+      "parent": "air-force-materiel-command",
+      "source": "afmc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.afmc.af.mil/About-Us/Fact-Sheets/Display/Article/1563085/air-force-materiel-command/",
+        "sourceTitle": "Air Force Test Center Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Edwards AFB, CA. Manages AF developmental test and evaluation."
+      }
+    },
+    {
+      "id": "air-force-life-cycle-management-center",
+      "label": "AFLCMC",
+      "fullName": "Air Force Life Cycle Management Center",
+      "echelon": 4,
+      "type": "center",
+      "parent": "air-force-materiel-command",
+      "source": "aflcmc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.aflcmc.af.mil/Portals/79/Org%20Charts/AFLCMC%20Org%20Chart_May%202026_NoPhone.pdf",
+        "sourceTitle": "Air Force Life Cycle Management Center Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Wright-Patterson AFB, OH. Manages total system lifecycles."
+      }
+    },
+    {
+      "id": "air-force-research-laboratory",
+      "label": "AFRL",
+      "fullName": "Air Force Research Laboratory",
+      "echelon": 4,
+      "type": "lab",
+      "parent": "air-force-materiel-command",
+      "source": "afmc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.afmc.af.mil/About-Us/Fact-Sheets/Display/Article/1563085/air-force-materiel-command/",
+        "sourceTitle": "Air Force Research Laboratory Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "HQ: Wright-Patterson AFB, OH. Conducts basic & applied science research."
+      }
+    },
+    {
+      "id": "53rd-wing",
+      "label": "53rd WG",
+      "fullName": "53rd Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-combat-command",
+      "source": "eglin.af.mil",
+      "meta": {
+        "sourceUrl": "https://installations.militaryonesource.mil/military-installation/eglin-afb/base-essentials/major-units",
+        "sourceTitle": "53rd Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Eglin AFB, FL. Operational testing wing."
+      }
+    },
+    {
+      "id": "350th-spectrum-warfare-wing",
+      "label": "350th SWW",
+      "fullName": "350th Spectrum Warfare Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-combat-command",
+      "source": "eglin.af.mil",
+      "meta": {
+        "sourceUrl": "https://installations.militaryonesource.mil/military-installation/eglin-afb/base-essentials/major-units",
+        "sourceTitle": "350th Spectrum Warfare Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Eglin AFB, FL. Electromagnetic spectrum warfare operations wing."
+      }
+    },
+    {
+      "id": "33rd-fighter-wing",
+      "label": "33rd FW",
+      "fullName": "33rd Fighter Wing",
+      "echelon": 4,
+      "type": "command",
+      "parent": "air-education-and-training-command",
+      "source": "eglin.af.mil",
+      "meta": {
+        "sourceUrl": "https://en.wikipedia.org/wiki/Eglin_Air_Force_Base",
+        "sourceTitle": "33rd Fighter Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "medium",
+        "notes": "Eglin AFB, FL. Joint F-35 pilot and maintainer training wing. Provenance is Wikipedia; replace with an official source before treating as high confidence."
+      }
+    },
+    {
+      "id": "national-military-command-center",
+      "label": "NMCC",
+      "fullName": "National Military Command Center",
+      "echelon": 4,
+      "type": "center",
+      "parent": "joint-staff-j3",
+      "source": "wikipedia.org",
+      "meta": {
+        "sourceUrl": "https://en.wikipedia.org/wiki/National-Military-Command-Center",
+        "sourceTitle": "National Military Command Center Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "medium",
+        "notes": "Pentagon war room facility operated under the Joint Staff J-3. Provenance is Wikipedia; replace with an official source before treating as high confidence."
+      }
+    },
+    {
+      "id": "army-devcom",
+      "label": "DEVCOM",
+      "fullName": "United States Army Combat Capabilities Development Command",
+      "echelon": 4,
+      "type": "center",
+      "parent": "army-transformation-training-command",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Combat Capabilities Development Command Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Subordinate center of T2COM focusing on capability and technology development."
+      }
+    },
+    {
+      "id": "office-naval-intelligence",
+      "label": "ONI",
+      "fullName": "Office of Naval Intelligence",
+      "echelon": 4,
+      "type": "agency",
+      "parent": "naval-intelligence-activity",
+      "source": "oni.navy.mil",
+      "meta": {
+        "sourceUrl": "https://www.oni.navy.mil/",
+        "sourceTitle": "Office of Naval Intelligence Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "National maritime intelligence center located in Suitland, MD."
+      }
+    },
+    {
+      "id": "96th-test-wing",
+      "label": "96th TW",
+      "fullName": "96th Test Wing",
+      "echelon": 5,
+      "type": "command",
+      "parent": "air-force-test-center",
+      "source": "eglin.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.eglin.af.mil/About-Us/Fact-Sheets/Display/Article/390959/96th-test-wing/",
+        "sourceTitle": "96th Test Wing Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Eglin AFB, FL (near Wright, FL). Host wing at Eglin AFB."
+      }
+    },
+    {
+      "id": "armament-directorate",
+      "label": "AFLCMC/EB",
+      "fullName": "Air Force Armament Directorate",
+      "echelon": 5,
+      "type": "directorate",
+      "parent": "air-force-life-cycle-management-center",
+      "source": "aflcmc.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.aflcmc.af.mil/Portals/79/Org%20Charts/AFLCMC%20Org%20Chart_May%202026_NoPhone.pdf",
+        "sourceTitle": "Air Force Armament Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Eglin AFB, FL. PEO weapons acquisition."
+      }
+    },
+    {
+      "id": "munitions-directorate",
+      "label": "AFRL/RW",
+      "fullName": "Air Force Research Laboratory Munitions Directorate",
+      "echelon": 5,
+      "type": "directorate",
+      "parent": "air-force-research-laboratory",
+      "source": "eglin.af.mil",
+      "meta": {
+        "sourceUrl": "https://www.eglin.af.mil/About-Us/Fact-Sheets/Display/Article/2295230/air-force-materiel-command/",
+        "sourceTitle": "Air Force Research Laboratory Munitions Directorate Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Eglin AFB, FL. Focuses on air-delivered munitions technology."
+      }
+    },
+    {
+      "id": "army-research-lab",
+      "label": "ARL",
+      "fullName": "United States Army Research Laboratory",
+      "echelon": 5,
+      "type": "lab",
+      "parent": "army-devcom",
+      "source": "army.mil",
+      "meta": {
+        "sourceUrl": "https://www.army.mil/organization/",
+        "sourceTitle": "United States Army Research Laboratory Official Page",
+        "sourceDate": "2026-06-23",
+        "accessed": "2026-06-23",
+        "confidence": "high",
+        "notes": "Army's premier lab for basic and scientific research."
+      }
+    },
+    {
+      "id": "assistant-secretary-defense-legislative-affairs",
+      "label": "ASD(LA)",
+      "fullName": "Assistant Secretary of Defense for Legislative Affairs",
+      "echelon": 2,
+      "type": "assistant-secretary",
+      "parent": "secretary-of-defense",
+      "source": "la.defense.gov office page",
+      "meta": {
+        "sourceUrl": "https://la.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Legislative Affairs states it is the Principal Staff Assistant and advisor to the Secretary and is responsible directly to the Secretary. Normalize site branding back to statutory 'Defense' naming. citeturn12view1"
+      }
+    },
+    {
+      "id": "assistant-to-secretary-defense-public-affairs",
+      "label": "ATSD(PA)",
+      "fullName": "Assistant to the Secretary of Defense for Public Affairs",
+      "echelon": 2,
+      "type": "osd",
+      "parent": "secretary-of-defense",
+      "source": "Defense.gov OSD page and 2025 OSD organizational structure chart",
+      "meta": {
+        "sourceUrl": "https://www.defense.gov/About/Office-of-the-Secretary-of-Defense/",
+        "accessed": "2026-06-24",
+        "confidence": "medium",
+        "notes": "The Sep. 2025 OSD chart lists ATSD(PA) as a principal staff assistant, but a separate current official office page was not found in this pass. Normalize naming to statutory 'Defense'. citeturn8view4turn9view0"
+      }
+    },
+    {
+      "id": "assistant-secretary-defense-cyber-policy",
+      "label": "ASD(CP)",
+      "fullName": "Assistant Secretary of Defense for Cyber Policy",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page lists this assistant secretary and indicates the office concurrently serves as Principal Cyber Advisor; modeled here as the ASD office, not as a separate PCA node. citeturn32view0"
+      }
+    },
+    {
+      "id": "assistant-secretary-defense-international-security-affairs",
+      "label": "ASD(ISA)",
+      "fullName": "Assistant Secretary of Defense for International Security Affairs",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page lists this assistant secretary. Normalize branding to statutory 'Defense' naming. citeturn33view0"
+      }
+    },
+    {
+      "id": "assistant-secretary-defense-indo-pacific-security-affairs",
+      "label": "ASD(IPSA)",
+      "fullName": "Assistant Secretary of Defense for Indo-Pacific Security Affairs",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page lists this assistant secretary. Normalize branding to statutory 'Defense' naming. citeturn33view1"
+      }
+    },
+    {
+      "id": "assistant-secretary-defense-nuclear-deterrence-chemical-biological-defense-policy-programs",
+      "label": "ASD(NCB)",
+      "fullName": "Assistant Secretary of Defense for Nuclear Deterrence, Chemical, and Biological Defense Policy and Programs",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page lists this assistant secretary. Normalize branding to statutory 'Defense' naming. citeturn33view2"
+      }
+    },
+    {
+      "id": "assistant-secretary-defense-space-policy",
+      "label": "ASD(SP)",
+      "fullName": "Assistant Secretary of Defense for Space Policy",
+      "echelon": 3,
+      "type": "assistant-secretary",
+      "parent": "under-secretary-policy",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page lists this assistant secretary under USD(P). Normalize branding to statutory 'Defense' naming. citeturn33view3"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-americas-security-affairs",
+      "label": "DASD(ASA)",
+      "fullName": "Deputy Assistant Secretary of Defense for Americas Security Affairs",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-homeland-defense-hemispheric-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn17view5"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-defense-continuity-mission-assurance",
+      "label": "DASD(DC&MA)",
+      "fullName": "Deputy Assistant Secretary of Defense for Defense Continuity and Mission Assurance",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-homeland-defense-hemispheric-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view5"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-homeland-defense",
+      "label": "DASD(HD)",
+      "fullName": "Deputy Assistant Secretary of Defense for Homeland Defense",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-homeland-defense-hemispheric-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view6"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-african-affairs",
+      "label": "DASD(Africa)",
+      "fullName": "Deputy Assistant Secretary of Defense for African Affairs",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-international-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn34view0"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-europe-and-nato",
+      "label": "DASD(Europe & NATO)",
+      "fullName": "Deputy Assistant Secretary of Defense for Europe and NATO",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-international-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn34view1"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-middle-east",
+      "label": "DASD(Middle East)",
+      "fullName": "Deputy Assistant Secretary of Defense for Middle East",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-international-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view0"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-russia-ukraine-eurasia",
+      "label": "DASD(RUE)",
+      "fullName": "Deputy Assistant Secretary of Defense for Russia, Ukraine, and Eurasia",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-international-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view1"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-china-taiwan-mongolia",
+      "label": "DASD(CTM)",
+      "fullName": "Deputy Assistant Secretary of Defense for China, Taiwan, and Mongolia",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-indo-pacific-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view2"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-east-asia",
+      "label": "DASD(East Asia)",
+      "fullName": "Deputy Assistant Secretary of Defense for East Asia",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-indo-pacific-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view3"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-south-and-southeast-asia",
+      "label": "DASD(S&SEA)",
+      "fullName": "Deputy Assistant Secretary of Defense for South and Southeast Asia",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-indo-pacific-security-affairs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view4"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-nuclear-deterrence-and-countering-weapons-of-mass-destruction-policy",
+      "label": "DASD(ND&CWMD)",
+      "fullName": "Deputy Assistant Secretary of Defense for Nuclear Deterrence and Countering Weapons of Mass Destruction Policy",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-nuclear-deterrence-chemical-biological-defense-policy-programs",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn16view2"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-space-and-missile-defense",
+      "label": "DASD(S&MD)",
+      "fullName": "Deputy Assistant Secretary of Defense for Space and Missile Defense",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "assistant-secretary-defense-space-policy",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn17view0"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-counternarcotics-and-global-threats",
+      "label": "DASD(CN&GT)",
+      "fullName": "Deputy Assistant Secretary of Defense for Counternarcotics and Global Threats",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-special-operations-low-intensity-conflict",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn17view1"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-irregular-warfare-and-counterterrorism",
+      "label": "DASD(IW&CT)",
+      "fullName": "Deputy Assistant Secretary of Defense for Irregular Warfare and Counterterrorism",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-special-operations-low-intensity-conflict",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn35view7"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-plans-and-posture",
+      "label": "DASD(P&P)",
+      "fullName": "Deputy Assistant Secretary of Defense for Plans and Posture",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-strategy-plans-capabilities",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn17view2"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-security-cooperation",
+      "label": "DASD(SC)",
+      "fullName": "Deputy Assistant Secretary of Defense for Security Cooperation",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-strategy-plans-capabilities",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn17view3"
+      }
+    },
+    {
+      "id": "deputy-assistant-secretary-defense-strategy-and-force-development",
+      "label": "DASD(S&FD)",
+      "fullName": "Deputy Assistant Secretary of Defense for Strategy and Force Development",
+      "echelon": 4,
+      "type": "deputy-assistant-secretary",
+      "parent": "asd-strategy-plans-capabilities",
+      "source": "policy.defense.gov OUSDP office page",
+      "meta": {
+        "sourceUrl": "https://policy.defense.gov/",
+        "accessed": "2026-06-24",
+        "confidence": "high",
+        "notes": "Current OUSDP office page publicly identifies this DASD-level office. citeturn17view4"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "air-force-special-operations-command",
+      "target": "us-special-operations-command",
+      "relation": "service_component_of",
+      "sourceUrl": "https://www.afsoc.af.mil/",
+      "confidence": "high",
+      "notes": "AFSOC is the Air Force component of USSOCOM."
+    },
+    {
+      "source": "army-special-operations-command",
+      "target": "us-special-operations-command",
+      "relation": "service_component_of",
+      "sourceUrl": "https://www.socom.mil/",
+      "confidence": "high",
+      "notes": "USASOC is the Army component of USSOCOM."
+    },
+    {
+      "source": "army-cyber-command",
+      "target": "us-cyber-command",
+      "relation": "service_component_of",
+      "sourceUrl": "https://www.cybercom.mil/",
+      "confidence": "high",
+      "notes": "ARCYBER is the Army component of USCYBERCOM."
+    },
+    {
+      "source": "defense-logistics-agency",
+      "target": "department-of-defense",
+      "relation": "combat_support_agency_for",
+      "sourceUrl": "https://www.dla.mil/",
+      "confidence": "high",
+      "notes": "DLA is designated as a Combat Support Agency."
+    },
+    {
+      "source": "defense-information-systems-agency",
+      "target": "department-of-defense",
+      "relation": "combat_support_agency_for",
+      "sourceUrl": "https://www.disa.mil/",
+      "confidence": "high",
+      "notes": "DISA is designated as a Combat Support Agency."
+    },
+    {
+      "source": "defense-intelligence-agency",
+      "target": "department-of-defense",
+      "relation": "combat_support_agency_for",
+      "sourceUrl": "https://www.dia.mil/",
+      "confidence": "high",
+      "notes": "DIA is designated as a Combat Support Agency."
+    },
+    {
+      "source": "defense-threat-reduction-agency",
+      "target": "department-of-defense",
+      "relation": "combat_support_agency_for",
+      "sourceUrl": "https://www.dtra.mil/",
+      "confidence": "high",
+      "notes": "DTRA is designated as a Combat Support Agency."
+    },
+    {
+      "source": "army-forces-command",
+      "target": "us-northern-command",
+      "relation": "provides_forces_to",
+      "sourceUrl": "https://www.army.mil/",
+      "confidence": "high",
+      "notes": "FORSCOM provides land forces to USNORTHCOM."
+    },
+    {
+      "source": "navy-fleet-forces-command",
+      "target": "us-northern-command",
+      "relation": "provides_forces_to",
+      "sourceUrl": "https://www.navy.mil/",
+      "confidence": "high",
+      "notes": "USFFC provides naval forces and acts as the naval component to USNORTHCOM."
+    },
+    {
+      "source": "navy-pacific-fleet",
+      "target": "us-indo-pacific-command",
+      "relation": "provides_forces_to",
+      "sourceUrl": "https://www.cpf.navy.mil/",
+      "confidence": "high",
+      "notes": "USPACFLT provides naval forces and acts as the naval component to USINDOPACOM."
+    },
+    {
+      "source": "919th-special-operations-wing",
+      "target": "air-force-special-operations-command",
+      "relation": "reports_operationally_to",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Air_Force_Special_Operations_Command",
+      "confidence": "high",
+      "notes": "919th SOW is in the Air Force Reserve but reports operationally to AFSOC."
+    },
+    {
+      "source": "joint-staff",
+      "target": "chairman-joint-chiefs",
+      "relation": "oversight_by",
+      "sourceUrl": "https://www.jcs.mil/",
+      "confidence": "high",
+      "notes": "The Joint Staff assists and is directed by the Chairman of the Joint Chiefs of Staff (10 U.S.C. 155)."
+    },
+    {
+      "source": "asd-special-operations-low-intensity-conflict",
+      "target": "secretary-of-defense",
+      "relation": "oversight_by",
+      "sourceUrl": "https://www.defense.gov/About/Office-of-the-Secretary-of-Defense/",
+      "confidence": "high",
+      "notes": "Keep the primary administrative parent under USD(P), but add a secondary edge because the OSD chart footnote says the office reports directly to the Secretary for USSOCOM special-operations-peculiar administrative matters. citeturn9view0"
+    }
+  ],
+  "meta": {
+    "title": "Department of Defense organizational structure",
+    "asOf": "2026-06-24",
+    "classification": "UNCLASSIFIED / PUBLIC SOURCES ONLY",
+    "researchDate": "2026-06-23",
+    "notes": "Includes the ceremonial 'Department of War' context as of Sept 5, 2025, and major 2025/2026 organizational restructuring like Army's T2COM and USAWHC, and Space Force's SPACEFOR-NORTH. Ingested into offline Canvas renderer without independent re-verification.",
+    "ingestedFrom": "Pasted text (2)(4).txt",
+    "ingestDate": "2026-06-23",
+    "note": "Includes the ceremonial 'Department of War' context as of Sept 5, 2025, and major 2025/2026 organizational restructuring like Army's T2COM and USAWHC, and Space Force's SPACEFOR-NORTH.",
+    "passesApplied": [
+      {
+        "pass": "Pass 01 — OSD principal / assistant secretary / DASD layer",
+        "appliedDate": "2026-06-24",
+        "added": 24,
+        "updated": 30,
+        "edges": 1,
+        "deferred": [
+          "chief-digital-ai-office",
+          "defense-innovation-unit",
+          "office-strategic-capital",
+          "privacy-civil-liberties-transparency",
+          "office-of-net-assessment"
+        ]
+      }
+    ]
+  }
+}
