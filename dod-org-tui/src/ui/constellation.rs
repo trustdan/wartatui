@@ -6,10 +6,11 @@ use crate::anim;
 use crate::app::App;
 use crate::theme;
 use ratatui::layout::Rect;
-use ratatui::style::{Color, Style};
+use ratatui::style::{Color, Style, Stylize};
 use ratatui::symbols::Marker;
+use ratatui::text::{Line, Span};
 use ratatui::widgets::canvas::{Canvas, Line as CanvasLine, Points};
-use ratatui::widgets::{Block, Borders};
+use ratatui::widgets::{Block, Borders, Clear, Paragraph};
 use ratatui::Frame;
 use std::collections::HashSet;
 
@@ -173,6 +174,82 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
         });
 
     f.render_widget(canvas, area);
+
+    render_orientation(f, app, area);
+}
+
+/// A small "you are here" label — major category › sub-category — parked in
+/// whichever blank corner matches the focused node's direction on the circle.
+fn render_orientation(f: &mut Frame, app: &App, area: Rect) {
+    let focused_id = match app.tree.focused_id() {
+        Some(id) => id.clone(),
+        None => return,
+    };
+    let chain = app.tree.ancestry(&focused_id); // [root, SecDef, major, sub, ...]
+
+    // Major category = the depth-2 ancestor; sub = depth-3.
+    let major_id = chain.get(2).or_else(|| chain.last());
+    let sub_id = chain.get(3);
+    let major_id = match major_id {
+        Some(id) => id,
+        None => return,
+    };
+
+    let major_node = match app.tree.node(major_id) {
+        Some(n) => n,
+        None => return,
+    };
+    let major_label = major_node.data.label.clone();
+    let major_color = theme::node_color(&major_node.data.org_type, major_node.data.echelon);
+    let sub_label = sub_id
+        .and_then(|id| app.tree.node(id))
+        .map(|n| n.data.label.clone());
+
+    // Build the label lines.
+    let mut lines: Vec<Line> = vec![Line::from(vec![
+        Span::styled("◆ ", Style::default().fg(major_color)),
+        Span::styled(major_label.clone(), Style::default().fg(major_color).bold()),
+    ])];
+    if let Some(sub) = &sub_label {
+        lines.push(Line::from(Span::styled(
+            format!("  {}", sub),
+            Style::default().fg(Color::Rgb(150, 160, 175)),
+        )));
+    }
+
+    // Box size.
+    let label_w = major_label.chars().count() + 2;
+    let sub_w = sub_label.as_ref().map(|s| s.chars().count() + 2).unwrap_or(0);
+    let boxw = (label_w.max(sub_w) as u16 + 2).min(area.width.saturating_sub(2));
+    let boxh = lines.len() as u16;
+    if boxw == 0 || boxh == 0 || area.width < boxw + 4 || area.height < boxh + 2 {
+        return;
+    }
+
+    // Pick the corner matching the node's direction (canvas y is up).
+    let angle = app.positions.get(&focused_id).map(|p| p.1).unwrap_or(0.0);
+    let right = angle.cos() >= 0.0;
+    let top = angle.sin() >= 0.0;
+
+    let x = if right {
+        area.x + area.width - boxw - 1
+    } else {
+        area.x + 1
+    };
+    let y = if top {
+        area.y + 1
+    } else {
+        area.y + area.height - boxh - 1
+    };
+
+    let rect = Rect {
+        x,
+        y,
+        width: boxw,
+        height: boxh,
+    };
+    f.render_widget(Clear, rect);
+    f.render_widget(Paragraph::new(lines), rect);
 }
 
 /// Draw a curved link by interpolating in polar space (yields a spiral arc).
