@@ -1,6 +1,7 @@
 //! Help overlay — a centered popup showing all keybindings.
-//! Dismisses on any keypress (except q / Ctrl+C which quit).
+//! j/k / ^D/^U / PageDn/PageUp scroll; any other key dismisses.
 
+use crate::app::App;
 use ratatui::layout::Rect;
 use ratatui::style::{Color, Style, Stylize};
 use ratatui::text::{Line, Span};
@@ -11,9 +12,9 @@ const DIM: Color = Color::Rgb(110, 118, 130);
 const KEY: Color = Color::Rgb(232, 200, 90);
 const HDR: Color = Color::Rgb(120, 200, 255);
 
-pub fn render(f: &mut Frame, area: Rect) {
+pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let popup_w = area.width.min(64).max(48);
-    let popup_h = area.height.min(30).max(10);
+    let popup_h = area.height.min(40).max(10);
     let x = area.x + (area.width.saturating_sub(popup_w)) / 2;
     let y = area.y + (area.height.saturating_sub(popup_h)) / 2;
     let rect = Rect { x, y, width: popup_w, height: popup_h };
@@ -22,13 +23,20 @@ pub fn render(f: &mut Frame, area: Rect) {
 
     let lines = build_lines();
 
+    // Clamp scroll so the last line stays visible.
+    let inner_h = popup_h.saturating_sub(2);
+    let max_scroll = (lines.len() as u16).saturating_sub(inner_h);
+    let scroll = app.help_scroll.min(max_scroll);
+
     f.render_widget(
-        Paragraph::new(lines).block(
-            Block::default()
-                .title(" ? HELP  (any key to close) ")
-                .borders(Borders::ALL)
-                .border_style(Style::default().fg(HDR)),
-        ),
+        Paragraph::new(lines)
+            .scroll((scroll, 0))
+            .block(
+                Block::default()
+                    .title(" ? HELP  (j/k scroll · any other key close) ")
+                    .borders(Borders::ALL)
+                    .border_style(Style::default().fg(HDR)),
+            ),
         rect,
     );
 }
@@ -98,8 +106,13 @@ fn build_lines() -> Vec<Line<'static>> {
         hdr(" PANELS & MISC"),
         row2("d",    "unit-data card",    "Tab",    "cycle focus → card → links"),
         row2("↵",    "open link",         "Esc",    "close / cancel"),
+        row2("e",    "inline field editor", "E",    "open in $EDITOR (suspends TUI)"),
         row( "? / i", "this help"),
         row2("q",    "quit",              "^C",     "quit"),
+        blank(),
+        hdr(" COMMANDS  (press : to open command bar)"),
+        row( ":marks",  "show all named marks"),
+        row( ":e",      "file picker — switch JSON snapshot without restarting"),
         blank(),
         Line::from(vec![
             Span::raw("  "),

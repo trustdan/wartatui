@@ -1,4 +1,5 @@
 //! Classification banner with a boot flicker and typewriter title.
+//! Top-right corner shows the currently loaded filename.
 
 use crate::anim;
 use crate::app::App;
@@ -6,6 +7,7 @@ use crate::theme;
 use ratatui::layout::{Alignment, Rect};
 use ratatui::style::{Color, Style, Stylize};
 use ratatui::text::{Line, Span};
+use ratatui::widgets::block::Title;
 use ratatui::widgets::{Block, Borders, Paragraph};
 use ratatui::Frame;
 
@@ -60,9 +62,23 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
         spans.push(Span::styled("▏", Style::default().fg(Color::Rgb(120, 200, 255))));
     }
 
+    // Show the loaded filename in the top-right corner of the border.
+    let filename = app
+        .data_path
+        .file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_default();
+
     let block = Block::default()
         .borders(Borders::ALL)
-        .border_style(Style::default().fg(Color::Rgb(60, 70, 90)));
+        .border_style(Style::default().fg(Color::Rgb(60, 70, 90)))
+        .title(
+            Title::from(Span::styled(
+                format!(" · {} ", filename),
+                Style::default().fg(Color::Rgb(70, 82, 100)),
+            ))
+            .alignment(Alignment::Right),
+        );
 
     f.render_widget(
         Paragraph::new(Line::from(spans))

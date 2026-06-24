@@ -3,7 +3,10 @@
 mod banner;
 mod card;
 mod constellation;
+mod file_picker;
 mod help;
+mod inline_editor;
+mod marks;
 mod relations;
 mod statusline;
 mod tree_view;
@@ -82,8 +85,18 @@ pub fn render(f: &mut Frame, app: &App) {
         statusline::render(f, app, rows[2]);
     }
 
-    // Help overlay rendered last so it floats above everything.
+    // Overlays rendered in stack order (later = on top).
+    if app.show_marks {
+        marks::render(f, app, size);
+    }
+    if app.file_picker.is_some() {
+        file_picker::render(f, app, size);
+    }
+    if app.inline_editor.is_some() {
+        inline_editor::render(f, app, size);
+    }
+    // Help is always topmost.
     if app.show_help {
-        help::render(f, size);
+        help::render(f, app, size);
     }
 }

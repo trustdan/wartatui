@@ -2,11 +2,13 @@
 
 use crate::anim::{self, Clock};
 use crate::layout_radial::{self, Positions};
-use crate::model::{OrgData, OrgEdge, OrgMeta};
+use crate::model::{OrgData, OrgMeta, OrgEdge};
 use crate::tree::TreeState;
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 use std::cell::Cell;
 use std::collections::HashMap;
+use std::fs;
+use std::path::PathBuf;
 
 /// A pending multi-key prefix awaiting its second key.
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -45,6 +47,23 @@ pub type Transition = (String, String, f32);
 /// Wormhole transition duration in seconds.
 pub const JUMP_SECS: f32 = 1.0;
 
+/// State for the `:e` file picker overlay.
+pub struct FilePicker {
+    pub files: Vec<PathBuf>,
+    pub selected: usize,
+}
+
+/// State for the `e` inline field editor overlay.
+pub struct InlineEditor {
+    pub node_id: String,
+    /// (field_name, current_value) — field_name is a static label string.
+    pub fields: Vec<(&'static str, String)>,
+    pub selected: usize,
+    pub buffer: String,
+    pub editing: bool,
+    pub dirty: bool,
+}
+
 pub struct App {
     pub tree: TreeState,
     pub meta: OrgMeta,
@@ -65,8 +84,26 @@ pub struct App {
     pub no_anim: bool,
     /// When true, the help overlay is shown.
     pub show_help: bool,
+    /// Scroll offset inside the help overlay.
+    pub help_scroll: u16,
     /// Brief confirmation after `m{x}`: (letter, clock-time-set). Shown for 1.5 s.
     pub mark_flash: Option<(char, f32)>,
+    /// Path to the currently loaded data file.
+    pub data_path: PathBuf,
+    /// Active command bar buffer (`:` mode). None = inactive.
+    pub cmd_bar: Option<String>,
+    /// When true, the marks popup is shown.
+    pub show_marks: bool,
+    /// Active file picker overlay.
+    pub file_picker: Option<FilePicker>,
+    /// Signal to main loop: reload data from this path.
+    pub should_reload: Option<PathBuf>,
+    /// Signal to main loop: suspend TUI and open external editor.
+    pub should_edit_external: bool,
+    /// Active inline field editor overlay.
+    pub inline_editor: Option<InlineEditor>,
+    /// One-shot error message from command bar: (text, clock-time-set).
+    pub cmd_error: Option<(String, f32)>,
 
     // Viewport sizes, written by the renderer each frame so paging matches
     // what's actually on screen.
@@ -81,7 +118,7 @@ pub struct App {
 }
 
 impl App {
-    pub fn new(data: OrgData, no_anim: bool) -> Self {
+    pub fn new(data: OrgData, no_anim: bool, path: PathBuf) -> Self {
         let tree = TreeState::new(&data);
         let positions = layout_radial::compute(&tree);
         App {
@@ -99,7 +136,16 @@ impl App {
             transition: None,
             no_anim,
             show_help: false,
+            help_scroll: 0,
             mark_flash: None,
+            data_path: path,
+            cmd_bar: None,
+            show_marks: false,
+            file_picker: None,
+            should_reload: None,
+            should_edit_external: false,
+            inline_editor: None,
+            cmd_error: None,
             tree_viewport: Cell::new(10),
             card_viewport: Cell::new(10),
             card_lines: Cell::new(0),
@@ -117,14 +163,191 @@ impl App {
         }
     }
 
+    /// Sorted (letter, node_label) pairs for all currently-set marks.
+    pub fn marks_snapshot(&self) -> Vec<(char, String)> {
+        let mut pairs: Vec<(char, String)> = self
+            .marks
+            .iter()
+            .map(|(&ch, id)| {
+                let label = self
+                    .tree
+                    .node(id)
+                    .map(|n| n.data.label.clone())
+                    .unwrap_or_else(|| id.clone());
+                (ch, label)
+            })
+            .collect();
+        pairs.sort_by_key(|&(ch, _)| ch);
+        pairs
+    }
+
     pub fn handle_key(&mut self, key: KeyEvent) {
-        // Help overlay intercepts all keys — only quit passes through.
+        // Help overlay intercepts all keys — scroll keys navigate, anything else closes.
         if self.show_help {
             let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
             match key.code {
                 KeyCode::Char('q') | KeyCode::Char('Q') => self.should_quit = true,
                 KeyCode::Char('c') if ctrl => self.should_quit = true,
-                _ => self.show_help = false,
+                KeyCode::Char('j') | KeyCode::Down => {
+                    self.help_scroll = self.help_scroll.saturating_add(1);
+                }
+                KeyCode::Char('k') | KeyCode::Up => {
+                    self.help_scroll = self.help_scroll.saturating_sub(1);
+                }
+                KeyCode::Char('d') if ctrl => {
+                    self.help_scroll = self.help_scroll.saturating_add(8);
+                }
+                KeyCode::Char('u') if ctrl => {
+                    self.help_scroll = self.help_scroll.saturating_sub(8);
+                }
+                KeyCode::PageDown => {
+                    self.help_scroll = self.help_scroll.saturating_add(8);
+                }
+                KeyCode::PageUp => {
+                    self.help_scroll = self.help_scroll.saturating_sub(8);
+                }
+                KeyCode::Home | KeyCode::Char('g') => {
+                    self.help_scroll = 0;
+                }
+                KeyCode::End | KeyCode::Char('G') => {
+                    self.help_scroll = 255; // clamped in render
+                }
+                _ => {
+                    self.show_help = false;
+                    self.help_scroll = 0;
+                }
+            }
+            return;
+        }
+
+        // Command bar intercepts all typing.
+        if self.cmd_bar.is_some() {
+            let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
+            let quit = matches!(key.code, KeyCode::Char('q') | KeyCode::Char('Q'))
+                || (matches!(key.code, KeyCode::Char('c')) && ctrl);
+            let close = matches!(key.code, KeyCode::Esc);
+            let run = matches!(key.code, KeyCode::Enter);
+            let ch = if let KeyCode::Char(c) = key.code { Some(c) } else { None };
+            let pop = matches!(key.code, KeyCode::Backspace);
+
+            if quit {
+                self.should_quit = true;
+            } else if close {
+                self.cmd_bar = None;
+            } else if run {
+                let cmd = self.cmd_bar.take().unwrap_or_default();
+                self.dispatch_cmd(&cmd);
+            } else if let Some(c) = ch {
+                if let Some(buf) = &mut self.cmd_bar {
+                    buf.push(c);
+                }
+            } else if pop {
+                if let Some(buf) = &mut self.cmd_bar {
+                    buf.pop();
+                }
+            }
+            return;
+        }
+
+        // Marks popup intercepts all keys.
+        if self.show_marks {
+            let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
+            match key.code {
+                KeyCode::Char('q') | KeyCode::Char('Q') => self.should_quit = true,
+                KeyCode::Char('c') if ctrl => self.should_quit = true,
+                _ => self.show_marks = false,
+            }
+            return;
+        }
+
+        // File picker intercepts all keys.
+        if self.file_picker.is_some() {
+            let mut close = false;
+            let mut reload: Option<PathBuf> = None;
+            {
+                let fp = self.file_picker.as_mut().unwrap();
+                match key.code {
+                    KeyCode::Char('j') | KeyCode::Down => {
+                        if !fp.files.is_empty() {
+                            fp.selected = (fp.selected + 1).min(fp.files.len() - 1);
+                        }
+                    }
+                    KeyCode::Char('k') | KeyCode::Up => {
+                        fp.selected = fp.selected.saturating_sub(1);
+                    }
+                    KeyCode::Enter => {
+                        if !fp.files.is_empty() {
+                            reload = Some(fp.files[fp.selected].clone());
+                        }
+                        close = true;
+                    }
+                    KeyCode::Esc | KeyCode::Char('q') => close = true,
+                    _ => {}
+                }
+            }
+            if close {
+                self.file_picker = None;
+            }
+            if let Some(path) = reload {
+                self.should_reload = Some(path);
+            }
+            return;
+        }
+
+        // Inline editor intercepts all keys.
+        if self.inline_editor.is_some() {
+            // Resolve which action to take (borrow ends at block close).
+            let action: u8 = {
+                let ed = self.inline_editor.as_mut().unwrap();
+                if ed.editing {
+                    match key.code {
+                        KeyCode::Char(c) => {
+                            ed.buffer.push(c);
+                            0
+                        }
+                        KeyCode::Backspace => {
+                            ed.buffer.pop();
+                            0
+                        }
+                        KeyCode::Enter => {
+                            let val = ed.buffer.clone();
+                            ed.fields[ed.selected].1 = val;
+                            ed.editing = false;
+                            ed.dirty = true;
+                            0
+                        }
+                        KeyCode::Esc => {
+                            ed.editing = false;
+                            0
+                        }
+                        _ => 0,
+                    }
+                } else {
+                    match key.code {
+                        KeyCode::Char('j') | KeyCode::Down => {
+                            ed.selected =
+                                (ed.selected + 1).min(ed.fields.len().saturating_sub(1));
+                            0
+                        }
+                        KeyCode::Char('k') | KeyCode::Up => {
+                            ed.selected = ed.selected.saturating_sub(1);
+                            0
+                        }
+                        KeyCode::Enter => {
+                            ed.buffer = ed.fields[ed.selected].1.clone();
+                            ed.editing = true;
+                            0
+                        }
+                        KeyCode::Char('s') => 1, // save
+                        KeyCode::Esc | KeyCode::Char('q') => 2, // close
+                        _ => 0,
+                    }
+                }
+            };
+            if action == 1 {
+                self.save_inline_editor();
+            } else if action == 2 {
+                self.inline_editor = None;
             }
             return;
         }
@@ -174,7 +397,19 @@ impl App {
             KeyCode::Char('c') if ctrl => self.should_quit = true,
 
             // Open help overlay.
-            KeyCode::Char('?') | KeyCode::Char('i') => self.show_help = true,
+            KeyCode::Char('?') | KeyCode::Char('i') => {
+                self.show_help = true;
+                self.help_scroll = 0;
+            }
+
+            // Open command bar.
+            KeyCode::Char(':') => self.cmd_bar = Some(String::new()),
+
+            // External editor (suspend TUI).
+            KeyCode::Char('E') => self.should_edit_external = true,
+
+            // Inline field editor.
+            KeyCode::Char('e') => self.open_inline_editor(),
 
             // Panel focus
             KeyCode::Tab => self.cycle_focus(),
@@ -305,6 +540,156 @@ impl App {
             }
             Pending::None => false,
         }
+    }
+
+    /// Dispatch a `:command` entered in the command bar.
+    fn dispatch_cmd(&mut self, cmd: &str) {
+        let cmd = cmd.trim();
+        match cmd {
+            "marks" => self.show_marks = true,
+            c if c == "e" || c.starts_with("e ") => self.populate_file_picker(),
+            _ => {
+                self.cmd_error = Some((
+                    format!("E: unknown command '{}'", cmd),
+                    self.clock.elapsed(),
+                ));
+            }
+        }
+    }
+
+    /// Populate the file picker with `*.json` files from the data directory.
+    fn populate_file_picker(&mut self) {
+        let dir = self
+            .data_path
+            .parent()
+            .unwrap_or_else(|| std::path::Path::new("."));
+        let mut files: Vec<PathBuf> = fs::read_dir(dir)
+            .map(|rd| {
+                rd.filter_map(|e| e.ok())
+                    .map(|e| e.path())
+                    .filter(|p| p.extension().map_or(false, |ext| ext == "json"))
+                    .collect()
+            })
+            .unwrap_or_default();
+        files.sort();
+        let selected = files
+            .iter()
+            .position(|f| f == &self.data_path)
+            .unwrap_or(0);
+        self.file_picker = Some(FilePicker { files, selected });
+    }
+
+    /// Open the inline field editor for the currently focused node.
+    pub fn open_inline_editor(&mut self) {
+        let node = match self.tree.focused_node() {
+            Some(n) => n,
+            None => return,
+        };
+        let node_id = node.id.clone();
+        let fields: Vec<(&'static str, String)> = vec![
+            ("Label", node.label.clone()),
+            ("Full Name", node.full_name.clone()),
+            ("Source", node.source.clone().unwrap_or_default()),
+            ("Notes", node.meta_str("notes").unwrap_or("").to_string()),
+            (
+                "Confidence",
+                node.meta_str("confidence").unwrap_or("").to_string(),
+            ),
+        ];
+        self.inline_editor = Some(InlineEditor {
+            node_id,
+            fields,
+            selected: 0,
+            buffer: String::new(),
+            editing: false,
+            dirty: false,
+        });
+    }
+
+    /// Write edited fields back to the JSON file and signal a reload.
+    fn save_inline_editor(&mut self) {
+        let (node_id, fields) = match &self.inline_editor {
+            Some(ed) => (ed.node_id.clone(), ed.fields.clone()),
+            None => return,
+        };
+
+        let json_str = match fs::read_to_string(&self.data_path) {
+            Ok(s) => s,
+            Err(e) => {
+                self.cmd_error =
+                    Some((format!("save error: {}", e), self.clock.elapsed()));
+                return;
+            }
+        };
+        let mut root: serde_json::Value = match serde_json::from_str(&json_str) {
+            Ok(v) => v,
+            Err(e) => {
+                self.cmd_error =
+                    Some((format!("parse error: {}", e), self.clock.elapsed()));
+                return;
+            }
+        };
+
+        if let Some(nodes) = root.get_mut("nodes").and_then(|n| n.as_array_mut()) {
+            for node in nodes.iter_mut() {
+                if node.get("id").and_then(|v| v.as_str()) == Some(node_id.as_str()) {
+                    for (field, value) in &fields {
+                        match *field {
+                            "Label" => {
+                                node["label"] =
+                                    serde_json::Value::String(value.clone());
+                            }
+                            "Full Name" => {
+                                node["fullName"] =
+                                    serde_json::Value::String(value.clone());
+                            }
+                            "Source" => {
+                                node["source"] =
+                                    serde_json::Value::String(value.clone());
+                            }
+                            "Notes" => {
+                                if let Some(obj) = node.as_object_mut() {
+                                    let meta = obj
+                                        .entry("meta".to_string())
+                                        .or_insert_with(|| serde_json::json!({}));
+                                    meta["notes"] =
+                                        serde_json::Value::String(value.clone());
+                                }
+                            }
+                            "Confidence" => {
+                                if let Some(obj) = node.as_object_mut() {
+                                    let meta = obj
+                                        .entry("meta".to_string())
+                                        .or_insert_with(|| serde_json::json!({}));
+                                    meta["confidence"] =
+                                        serde_json::Value::String(value.clone());
+                                }
+                            }
+                            _ => {}
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        match serde_json::to_string_pretty(&root) {
+            Ok(pretty) => {
+                if let Err(e) = fs::write(&self.data_path, pretty) {
+                    self.cmd_error =
+                        Some((format!("write error: {}", e), self.clock.elapsed()));
+                    return;
+                }
+            }
+            Err(e) => {
+                self.cmd_error =
+                    Some((format!("serialize error: {}", e), self.clock.elapsed()));
+                return;
+            }
+        }
+
+        self.inline_editor = None;
+        self.should_reload = Some(self.data_path.clone());
     }
 
     /// Hop to the previous/next node of the same type (cross-cutting).
