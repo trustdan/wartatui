@@ -19,10 +19,17 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let class_color = theme::classification_color(&classification);
 
     // Flicker the classification label during the first instants of boot.
-    let class_visible = if elapsed < anim::BANNER_FLICKER_SECS {
-        ((elapsed * 28.0) as i32) % 2 == 0
-    } else {
+    let class_visible = if app.no_anim || elapsed >= anim::BANNER_FLICKER_SECS {
         true
+    } else {
+        ((elapsed * 28.0) as i32) % 2 == 0
+    };
+
+    // Post-boot shimmer: gently pulse the badge brightness (±8%).
+    let shimmer = if app.no_anim || elapsed < anim::BOOT_SECS {
+        1.0_f32
+    } else {
+        0.92 + 0.08 * anim::pulse(elapsed, 0.7)
     };
 
     // Typewriter the title in as boot progresses.
@@ -35,6 +42,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let shown = (full_title.chars().count() as f32 * reveal).round() as usize;
     let title: String = full_title.chars().take(shown).collect();
 
+    let badge_bg = shimmer_color(class_color, shimmer);
     let mut spans = vec![
         Span::styled(
             if class_visible {
@@ -42,7 +50,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
             } else {
                 format!(" {} ", " ".repeat(classification.len()))
             },
-            Style::default().fg(Color::Black).bg(class_color).bold(),
+            Style::default().fg(Color::Black).bg(badge_bg).bold(),
         ),
         Span::raw("   "),
         Span::styled(title, Style::default().fg(Color::Rgb(235, 235, 245)).bold()),
@@ -62,4 +70,15 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
             .alignment(Alignment::Center),
         area,
     );
+}
+
+/// Scale a Color::Rgb by a brightness factor, clamping at 255.
+fn shimmer_color(color: Color, factor: f32) -> Color {
+    match color {
+        Color::Rgb(r, g, b) => {
+            let scale = |c: u8| (c as f32 * factor).round().clamp(0.0, 255.0) as u8;
+            Color::Rgb(scale(r), scale(g), scale(b))
+        }
+        other => other,
+    }
 }

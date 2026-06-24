@@ -19,18 +19,18 @@ pub fn base_rgb(org_type: &str) -> (u8, u8, u8) {
         // Service / green
         "mildep" => (80, 165, 105),
         "service" => (150, 205, 140),
-        // Combatant commands / warm
-        "cocom-geo" => (232, 140, 60),
-        "cocom-func" => (200, 90, 70),
-        // Force providers / teal
-        "major-command" => (55, 180, 175),
-        "command" => (90, 205, 210),
-        // Defense enterprise / slate
-        "agency" => (135, 150, 170),
-        "field-activity" => (110, 160, 170),
-        "center" => (120, 175, 160),
-        "lab" => (130, 185, 195),
-        "directorate" => (150, 162, 178),
+        // Combatant commands — geo stays amber-orange; func goes crimson for contrast
+        "cocom-geo" => (235, 148, 50),
+        "cocom-func" => (215, 55, 55),
+        // Force providers / teal — slightly brighter for readability
+        "major-command" => (50, 190, 185),
+        "command" => (85, 215, 215),
+        // Defense enterprise / slate — lifted a touch so they don't grey-out
+        "agency" => (145, 162, 185),
+        "field-activity" => (115, 172, 182),
+        "center" => (125, 185, 168),
+        "lab" => (135, 195, 205),
+        "directorate" => (155, 168, 188),
         _ => (120, 120, 120),
     }
 }

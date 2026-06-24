@@ -33,7 +33,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
     }
 
     let elapsed = app.clock.elapsed();
-    let pulse = anim::pulse(elapsed, 3.2);
+    let pulse = if app.no_anim { 0.5 } else { anim::pulse(elapsed, 3.2) };
 
     let focused = app.tree.focused_id().cloned();
     let path_ids: Vec<String> = focused
@@ -113,7 +113,8 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
                         };
                     let a = map(ps.0, ps.1);
                     let b = map(pt.0, pt.1);
-                    let involved = e.source == focused_id || e.target == focused_id;
+                    let involved =
+                        (e.source == focused_id || e.target == focused_id) && !app.no_anim;
                     let rgb = theme::relation_rgb(&e.relation);
                     draw_edge(ctx, a, b, center, rgb, involved, elapsed);
                 }
@@ -149,7 +150,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
             }
 
             // --- traveling spark along the path ---
-            if path_ids.len() >= 2 {
+            if path_ids.len() >= 2 && !app.no_anim {
                 let segs = (path_ids.len() - 1) as f32;
                 let t = (elapsed * 0.6).fract() * segs;
                 let seg = t.floor() as usize;
@@ -190,6 +191,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
             }
 
             // --- wormhole comet: a streak racing along the jump arc ---
+            if !app.no_anim {
             if let Some((from, to, start)) = &app.transition {
                 let dt = (elapsed - start) / JUMP_SECS;
                 if (0.0..1.0).contains(&dt) {
@@ -261,6 +263,7 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
                     }
                 }
             }
+            } // end !no_anim
         });
 
     f.render_widget(canvas, area);

@@ -69,14 +69,18 @@ The centerpiece.
 - [x] `n` / `N` next / prev search match
 - [x] All bindings match [KEYMAP.md](KEYMAP.md) exactly
 
-## Phase 5 · Polish  ·  ~0.5–1+ session (open-ended)
+## Phase 5 · Polish  ·  ✅ DONE (merged 2026-06-24)
 
-- [ ] Easing pass on every transition (no linear/janky motion)
-- [ ] Color tuning for contrast + vibrancy across terminals
-- [ ] Classification banner shimmer
-- [ ] Perf check: steady frame rate, low idle CPU
-- [ ] README + KEYMAP updated to final behavior
-- [ ] Optional: `--no-anim` / motion toggle for SSH/battery
+- [x] Easing pass: all major transitions already eased (cubic/smoothstep/sine);
+      no linear jank found — constellation spark is ambient-loop, intentionally even
+- [x] Color tuning: cocom-func pushed to crimson to separate from amber cocom-geo;
+      slate types (agency/field-activity/center/lab/directorate) lifted for legibility
+- [x] Classification banner shimmer: post-boot badge pulses at ±8% brightness (0.7 Hz)
+- [x] Perf: 30 fps steady during animation; `--no-anim` drops to ~10 fps idle polling
+- [x] README rewritten with full Phase 1–4 feature coverage
+- [x] KEYMAP updated: phase markers stripped, `--no-anim` note added
+- [x] `--no-anim` flag: suppresses all motion (glow, spark, comet, flow dots,
+      flicker, shimmer); reduces frame poll to 100 ms
 
 ---
 

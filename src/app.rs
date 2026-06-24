@@ -48,8 +48,6 @@ pub const JUMP_SECS: f32 = 1.0;
 pub struct App {
     pub tree: TreeState,
     pub meta: OrgMeta,
-    /// Operational edges — surfaced in Phase 3.
-    #[allow(dead_code)]
     pub edges: Vec<OrgEdge>,
     pub mode: Mode,
     pub show_card: bool,
@@ -63,6 +61,8 @@ pub struct App {
     pub positions: Positions,
     /// Active wormhole jump animation, if any.
     pub transition: Option<Transition>,
+    /// When true, all motion and animation is suppressed (--no-anim).
+    pub no_anim: bool,
 
     // Viewport sizes, written by the renderer each frame so paging matches
     // what's actually on screen.
@@ -77,7 +77,7 @@ pub struct App {
 }
 
 impl App {
-    pub fn new(data: OrgData) -> Self {
+    pub fn new(data: OrgData, no_anim: bool) -> Self {
         let tree = TreeState::new(&data);
         let positions = layout_radial::compute(&tree);
         App {
@@ -93,6 +93,7 @@ impl App {
             should_quit: false,
             positions,
             transition: None,
+            no_anim,
             tree_viewport: Cell::new(10),
             card_viewport: Cell::new(10),
             card_lines: Cell::new(0),
@@ -101,9 +102,13 @@ impl App {
         }
     }
 
-    /// Boot cascade progress 0..1 (eased).
+    /// Boot cascade progress 0..1, always 1.0 when animations are off.
     pub fn boot_progress(&self) -> f32 {
-        anim::ease_out_cubic(self.clock.elapsed() / anim::BOOT_SECS)
+        if self.no_anim {
+            1.0
+        } else {
+            anim::ease_out_cubic(self.clock.elapsed() / anim::BOOT_SECS)
+        }
     }
 
     pub fn handle_key(&mut self, key: KeyEvent) {

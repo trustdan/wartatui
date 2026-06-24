@@ -20,8 +20,12 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let max_depth = tree.max_depth() as f32;
     let reveal_front = boot * (max_depth + 1.5);
 
-    // Breathing glow factor for the focused node.
-    let glow = 1.0 + 0.18 * anim::pulse(elapsed, 3.5);
+    // Breathing glow factor for the focused node (suppressed with --no-anim).
+    let glow = if app.no_anim {
+        1.0
+    } else {
+        1.0 + 0.18 * anim::pulse(elapsed, 3.5)
+    };
 
     let mut lines: Vec<Line> = Vec::new();
     for (i, id) in tree.flat_list.iter().enumerate() {
