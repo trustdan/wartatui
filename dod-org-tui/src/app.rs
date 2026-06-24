@@ -6,6 +6,17 @@ use crate::model::{OrgData, OrgEdge, OrgMeta};
 use crate::tree::TreeState;
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 use std::cell::Cell;
+use std::collections::HashMap;
+
+/// A pending multi-key prefix awaiting its second key.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Pending {
+    None,
+    G,        // gg / gd
+    Z,        // za / zM / zR
+    SetMark,  // m{a-z}
+    JumpMark, // '{a-z}
+}
 
 /// Which chain of command we're viewing. (OPS lands in Phase 3.)
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -59,8 +70,10 @@ pub struct App {
     pub card_viewport: Cell<u16>,
     pub card_lines: Cell<u16>,
 
-    /// Pending `g` for the `gg` sequence.
-    pending_g: bool,
+    /// Pending multi-key prefix (g / z / m / ').
+    pending: Pending,
+    /// Named marks (m{a-z} → node id).
+    marks: HashMap<char, String>,
 }
 
 impl App {
@@ -83,7 +96,8 @@ impl App {
             tree_viewport: Cell::new(10),
             card_viewport: Cell::new(10),
             card_lines: Cell::new(0),
-            pending_g: false,
+            pending: Pending::None,
+            marks: HashMap::new(),
         }
     }
 
@@ -100,24 +114,37 @@ impl App {
 
         let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
 
-        // Resolve a pending `g`: `gg` → top, `gd` → wormhole to first relation.
-        if self.pending_g {
-            self.pending_g = false;
+        // Resolve a pending multi-key prefix; consume the key if it completes one.
+        if self.pending != Pending::None {
+            let pending = self.pending;
+            self.pending = Pending::None;
+            if self.resolve_pending(pending, key) {
+                return;
+            }
+            // Not consumed — fall through so the key still acts normally.
+        }
+
+        // Arm a new prefix.
+        if !ctrl {
             match key.code {
                 KeyCode::Char('g') => {
-                    self.goto_top();
+                    self.pending = Pending::G;
                     return;
                 }
-                KeyCode::Char('d') => {
-                    self.jump_to_relation(0);
+                KeyCode::Char('z') => {
+                    self.pending = Pending::Z;
                     return;
                 }
-                _ => {} // fall through; the key also acts normally
+                KeyCode::Char('m') => {
+                    self.pending = Pending::SetMark;
+                    return;
+                }
+                KeyCode::Char('\'') => {
+                    self.pending = Pending::JumpMark;
+                    return;
+                }
+                _ => {}
             }
-        }
-        if !ctrl && key.code == KeyCode::Char('g') {
-            self.pending_g = true;
-            return;
         }
 
         match key.code {
@@ -140,6 +167,14 @@ impl App {
             KeyCode::PageDown => self.move_vert(self.full_page()),
             KeyCode::Char('G') | KeyCode::End => self.goto_bottom(),
             KeyCode::Home => self.goto_top(),
+
+            // Cross-cutting navigation
+            KeyCode::Char('[') => self.same_type(-1),
+            KeyCode::Char(']') => self.same_type(1),
+            KeyCode::Char('{') => self.sibling(-1),
+            KeyCode::Char('}') => self.sibling(1),
+            KeyCode::Char('n') => self.search_next(1),
+            KeyCode::Char('N') => self.search_next(-1),
 
             // Tree-only horizontal: collapse/expand, or leave the card.
             KeyCode::Left | KeyCode::Char('h') => match self.focus {
@@ -180,6 +215,141 @@ impl App {
                 self.link_focus = None;
             }
             _ => {}
+        }
+    }
+
+    /// Handle the second key of a multi-key prefix. Returns true if consumed.
+    fn resolve_pending(&mut self, pending: Pending, key: KeyEvent) -> bool {
+        match pending {
+            Pending::G => match key.code {
+                KeyCode::Char('g') => {
+                    self.goto_top();
+                    true
+                }
+                KeyCode::Char('d') => {
+                    self.jump_to_relation(0);
+                    true
+                }
+                _ => false,
+            },
+            Pending::Z => match key.code {
+                KeyCode::Char('a') => {
+                    self.tree.toggle_expanded();
+                    self.reset_card_view();
+                    true
+                }
+                KeyCode::Char('M') => {
+                    self.tree.collapse_all();
+                    self.reset_card_view();
+                    true
+                }
+                KeyCode::Char('R') => {
+                    self.tree.expand_all();
+                    true
+                }
+                _ => false,
+            },
+            Pending::SetMark => {
+                if let KeyCode::Char(c) = key.code {
+                    if c.is_ascii_alphabetic() {
+                        if let Some(id) = self.tree.focused_id().cloned() {
+                            self.marks.insert(c.to_ascii_lowercase(), id);
+                        }
+                        return true;
+                    }
+                }
+                false
+            }
+            Pending::JumpMark => {
+                if let KeyCode::Char(c) = key.code {
+                    if c.is_ascii_alphabetic() {
+                        if let Some(id) = self.marks.get(&c.to_ascii_lowercase()).cloned() {
+                            self.tree.focus_on(&id);
+                            self.reset_card_view();
+                        }
+                        return true;
+                    }
+                }
+                false
+            }
+            Pending::None => false,
+        }
+    }
+
+    /// Hop to the previous/next node of the same type (cross-cutting).
+    fn same_type(&mut self, dir: isize) {
+        let fid = match self.tree.focused_id().cloned() {
+            Some(id) => id,
+            None => return,
+        };
+        let ftype = match self.tree.node(&fid) {
+            Some(n) => n.data.org_type.clone(),
+            None => return,
+        };
+        let same: Vec<String> = self
+            .tree
+            .dfs_all()
+            .into_iter()
+            .filter(|id| {
+                self.tree
+                    .node(id)
+                    .map_or(false, |n| n.data.org_type == ftype)
+            })
+            .collect();
+        if same.len() <= 1 {
+            return;
+        }
+        if let Some(pos) = same.iter().position(|x| x == &fid) {
+            let n = same.len() as isize;
+            let ni = (pos as isize + dir).rem_euclid(n) as usize;
+            let target = same[ni].clone();
+            self.tree.focus_on(&target);
+            self.reset_card_view();
+        }
+    }
+
+    /// Move to the previous/next sibling under the same parent.
+    fn sibling(&mut self, dir: isize) {
+        let fid = match self.tree.focused_id().cloned() {
+            Some(id) => id,
+            None => return,
+        };
+        let parent = self.tree.node(&fid).and_then(|n| n.data.parent.clone());
+        let pid = match parent {
+            Some(p) => p,
+            None => return,
+        };
+        let sibs = match self.tree.node(&pid) {
+            Some(n) => n.children.clone(),
+            None => return,
+        };
+        if let Some(pos) = sibs.iter().position(|x| x == &fid) {
+            let n = sibs.len() as isize;
+            let ni = (pos as isize + dir).rem_euclid(n) as usize;
+            let target = sibs[ni].clone();
+            self.tree.focus_on(&target);
+            self.reset_card_view();
+        }
+    }
+
+    /// Jump to the next/previous visible search match.
+    fn search_next(&mut self, dir: isize) {
+        if self.tree.search_query.is_empty() {
+            return;
+        }
+        let n = self.tree.flat_list.len();
+        if n == 0 {
+            return;
+        }
+        let start = self.tree.focused_idx as isize;
+        for step in 1..=n as isize {
+            let idx = (start + dir * step).rem_euclid(n as isize) as usize;
+            let id = self.tree.flat_list[idx].clone();
+            if self.tree.is_match(&id) {
+                self.tree.focused_idx = idx;
+                self.reset_card_view();
+                break;
+            }
         }
     }
 

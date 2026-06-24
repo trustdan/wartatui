@@ -170,6 +170,39 @@ impl TreeState {
         self.nodes.keys().map(|id| self.depth_of(id)).max().unwrap_or(0)
     }
 
+    /// All node ids in full DFS order, ignoring expansion (stable ordering
+    /// for same-type hopping and search iteration).
+    pub fn dfs_all(&self) -> Vec<String> {
+        let mut out = Vec::new();
+        let root = self.root_id.clone();
+        self.dfs(&root, &mut out);
+        out
+    }
+
+    fn dfs(&self, id: &str, out: &mut Vec<String>) {
+        out.push(id.to_string());
+        if let Some(n) = self.nodes.get(id) {
+            for c in &n.children {
+                self.dfs(c, out);
+            }
+        }
+    }
+
+    pub fn collapse_all(&mut self) {
+        for n in self.nodes.values_mut() {
+            n.expanded = false;
+        }
+        self.rebuild_flat_list();
+        self.focused_idx = 0;
+    }
+
+    pub fn expand_all(&mut self) {
+        for n in self.nodes.values_mut() {
+            n.expanded = true;
+        }
+        self.rebuild_flat_list();
+    }
+
     /// Expand all ancestors of `id` and move focus onto it.
     pub fn focus_on(&mut self, id: &str) {
         let chain = self.ancestry(id);
