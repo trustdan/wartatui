@@ -80,6 +80,35 @@ pub fn node_color_factor(org_type: &str, echelon: u8, extra: f32) -> Color {
     scale(base_rgb(org_type), shade_factor(echelon) * extra)
 }
 
+/// Base RGB for an operational edge, keyed by relation (see THEME.md).
+pub fn relation_rgb(relation: &str) -> (u8, u8, u8) {
+    match relation {
+        "provides_forces_to" => (232, 140, 60),       // force flow = orange
+        "service_component_of" => (90, 205, 210),     // component = cyan
+        "combat_support_agency_for" => (120, 200, 140), // support = green
+        "oversight_by" => (175, 150, 230),            // oversight = violet
+        "reports_operationally_to" => (235, 205, 90), // reporting = gold
+        _ => (170, 178, 190),
+    }
+}
+
+/// Human-readable relation label.
+pub fn relation_label(relation: &str) -> &'static str {
+    match relation {
+        "provides_forces_to" => "provides forces to",
+        "service_component_of" => "service component of",
+        "combat_support_agency_for" => "combat support agency for",
+        "oversight_by" => "oversight by",
+        "reports_operationally_to" => "reports operationally to",
+        _ => "related to",
+    }
+}
+
+/// Scale an RGB triple by a brightness factor into a Color.
+pub fn rgb_scale((r, g, b): (u8, u8, u8), f: f32) -> Color {
+    scale((r, g, b), f)
+}
+
 /// Banner color, driven by classification (never hard-coded to one level).
 pub fn classification_color(classification: &str) -> Color {
     let c = classification.to_ascii_uppercase();

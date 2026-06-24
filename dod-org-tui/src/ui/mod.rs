@@ -3,10 +3,11 @@
 mod banner;
 mod card;
 mod constellation;
+mod relations;
 mod statusline;
 mod tree_view;
 
-use crate::app::App;
+use crate::app::{App, Mode};
 use ratatui::layout::{Constraint, Direction, Layout};
 use ratatui::style::{Color, Style};
 use ratatui::Frame;
@@ -50,8 +51,10 @@ pub fn render(f: &mut Frame, app: &App) {
 
     banner::render(f, app, rows[0]);
 
-    // main: tree (+ optional card)
-    let cols = if app.show_card {
+    // main: tree, with a right panel for the card (ADMIN) or relations (OPS).
+    let ops = app.mode == Mode::Ops;
+    let show_right = ops || app.show_card;
+    let cols = if show_right {
         Layout::default()
             .direction(Direction::Horizontal)
             .constraints([Constraint::Percentage(55), Constraint::Percentage(45)])
@@ -63,8 +66,12 @@ pub fn render(f: &mut Frame, app: &App) {
     };
 
     tree_view::render(f, app, cols[0]);
-    if app.show_card {
-        card::render(f, app, cols[1]);
+    if show_right {
+        if ops {
+            relations::render(f, app, cols[1]);
+        } else {
+            card::render(f, app, cols[1]);
+        }
     }
 
     if show_constellation {

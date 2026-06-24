@@ -3,7 +3,7 @@
 //! a traveling spark, and a pulsing marker on the focused node.
 
 use crate::anim;
-use crate::app::App;
+use crate::app::{App, Mode, JUMP_SECS};
 use crate::theme;
 use ratatui::layout::Rect;
 use ratatui::style::{Color, Style, Stylize};
@@ -102,6 +102,23 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
                 draw_curve(ctx, pp, cp, col, map);
             }
 
+            // --- operational edges (OPS mode): the second chain of command ---
+            if app.mode == Mode::Ops {
+                let center = map(0.0, 0.0);
+                for e in app.edges.iter() {
+                    let (ps, pt) =
+                        match (app.positions.get(&e.source), app.positions.get(&e.target)) {
+                            (Some(a), Some(b)) => (a, b),
+                            _ => continue,
+                        };
+                    let a = map(ps.0, ps.1);
+                    let b = map(pt.0, pt.1);
+                    let involved = e.source == focused_id || e.target == focused_id;
+                    let rgb = theme::relation_rgb(&e.relation);
+                    draw_edge(ctx, a, b, center, rgb, involved, elapsed);
+                }
+            }
+
             // --- nodes ---
             for (id, node) in app.tree.nodes.iter() {
                 let depth = app.tree.depth_of(id) as f32;
@@ -170,6 +187,39 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
                     coords: &[(x, y)],
                     color: Color::Rgb(255, 255, 255),
                 });
+            }
+
+            // --- wormhole comet: a spark racing along the jump arc ---
+            if let Some((from, to, start)) = &app.transition {
+                let dt = (elapsed - start) / JUMP_SECS;
+                if (0.0..1.0).contains(&dt) {
+                    if let (Some(pf), Some(pt)) =
+                        (app.positions.get(from), app.positions.get(to))
+                    {
+                        let center = map(0.0, 0.0);
+                        let a = map(pf.0, pf.1);
+                        let b = map(pt.0, pt.1);
+                        let c = ctrl_point(a, b, center);
+                        let tt = anim::ease_out_cubic(dt) as f64;
+                        let u = 1.0 - tt;
+                        let x = u * u * a.0 + 2.0 * u * tt * c.0 + tt * tt * b.0;
+                        let y = u * u * a.1 + 2.0 * u * tt * c.1 + tt * tt * b.1;
+                        let ring: Vec<(f64, f64)> = (0..10)
+                            .map(|k| {
+                                let ang = k as f64 / 10.0 * std::f64::consts::TAU;
+                                (x + ang.cos() * 2.4, y + ang.sin() * 1.2)
+                            })
+                            .collect();
+                        ctx.draw(&Points {
+                            coords: &ring,
+                            color: Color::Rgb(120, 220, 255),
+                        });
+                        ctx.draw(&Points {
+                            coords: &[(x, y)],
+                            color: Color::Rgb(255, 255, 255),
+                        });
+                    }
+                }
             }
         });
 
@@ -250,6 +300,75 @@ fn render_orientation(f: &mut Frame, app: &App, area: Rect) {
     };
     f.render_widget(Clear, rect);
     f.render_widget(Paragraph::new(lines), rect);
+}
+
+/// Quadratic-Bezier control point that bows an edge toward the center.
+fn ctrl_point(a: (f64, f64), b: (f64, f64), center: (f64, f64)) -> (f64, f64) {
+    let mid = ((a.0 + b.0) * 0.5, (a.1 + b.1) * 0.5);
+    (
+        mid.0 * 0.55 + center.0 * 0.45,
+        mid.1 * 0.55 + center.1 * 0.45,
+    )
+}
+
+/// Draw an operational edge as a bowed arc; flowing dots when `flowing`.
+fn draw_edge(
+    ctx: &mut ratatui::widgets::canvas::Context,
+    a: (f64, f64),
+    b: (f64, f64),
+    center: (f64, f64),
+    rgb: (u8, u8, u8),
+    flowing: bool,
+    elapsed: f32,
+) {
+    let c = ctrl_point(a, b, center);
+    const N: usize = 28;
+    let pts: Vec<(f64, f64)> = (0..=N)
+        .map(|i| {
+            let t = i as f64 / N as f64;
+            let u = 1.0 - t;
+            (
+                u * u * a.0 + 2.0 * u * t * c.0 + t * t * b.0,
+                u * u * a.1 + 2.0 * u * t * c.1 + t * t * b.1,
+            )
+        })
+        .collect();
+
+    if !flowing {
+        let col = theme::rgb_scale(rgb, 0.22);
+        for w in pts.windows(2) {
+            ctx.draw(&CanvasLine {
+                x1: w[0].0,
+                y1: w[0].1,
+                x2: w[1].0,
+                y2: w[1].1,
+                color: col,
+            });
+        }
+        return;
+    }
+
+    // Base glow line plus bright dots flowing source -> target.
+    let base = theme::rgb_scale(rgb, 0.45);
+    for w in pts.windows(2) {
+        ctx.draw(&CanvasLine {
+            x1: w[0].0,
+            y1: w[0].1,
+            x2: w[1].0,
+            y2: w[1].1,
+            color: base,
+        });
+    }
+    for (i, p) in pts.iter().enumerate() {
+        let t = i as f32 / N as f32;
+        let flow = ((t * 5.0 - elapsed * 2.5) * std::f32::consts::TAU).sin() * 0.5 + 0.5;
+        if flow > 0.6 {
+            ctx.draw(&Points {
+                coords: &[*p],
+                color: theme::rgb_scale(rgb, 0.7 + 0.3 * flow),
+            });
+        }
+    }
 }
 
 /// Draw a curved link by interpolating in polar space (yields a spiral arc).

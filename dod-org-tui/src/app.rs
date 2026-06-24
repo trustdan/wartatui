@@ -21,6 +21,19 @@ pub enum Panel {
     Card,
 }
 
+/// An operational edge as seen from the focused node.
+pub struct Relation {
+    pub other: String,
+    pub relation: String,
+    pub outgoing: bool,
+}
+
+/// An in-flight wormhole jump: (from id, to id, start time).
+pub type Transition = (String, String, f32);
+
+/// Wormhole transition duration in seconds.
+pub const JUMP_SECS: f32 = 0.7;
+
 pub struct App {
     pub tree: TreeState,
     pub meta: OrgMeta,
@@ -37,6 +50,8 @@ pub struct App {
     pub should_quit: bool,
     /// Radial positions for the constellation (computed once).
     pub positions: Positions,
+    /// Active wormhole jump animation, if any.
+    pub transition: Option<Transition>,
 
     // Viewport sizes, written by the renderer each frame so paging matches
     // what's actually on screen.
@@ -64,6 +79,7 @@ impl App {
             clock: Clock::new(),
             should_quit: false,
             positions,
+            transition: None,
             tree_viewport: Cell::new(10),
             card_viewport: Cell::new(10),
             card_lines: Cell::new(0),
@@ -84,17 +100,25 @@ impl App {
 
         let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
 
-        // `gg` sequence: a bare 'g' arms it; the next 'g' jumps to top.
-        if !ctrl && key.code == KeyCode::Char('g') {
-            if self.pending_g {
-                self.goto_top();
-                self.pending_g = false;
-            } else {
-                self.pending_g = true;
+        // Resolve a pending `g`: `gg` → top, `gd` → wormhole to first relation.
+        if self.pending_g {
+            self.pending_g = false;
+            match key.code {
+                KeyCode::Char('g') => {
+                    self.goto_top();
+                    return;
+                }
+                KeyCode::Char('d') => {
+                    self.jump_to_relation(0);
+                    return;
+                }
+                _ => {} // fall through; the key also acts normally
             }
+        }
+        if !ctrl && key.code == KeyCode::Char('g') {
+            self.pending_g = true;
             return;
         }
-        self.pending_g = false;
 
         match key.code {
             KeyCode::Char('q') | KeyCode::Char('Q') => self.should_quit = true,
@@ -142,6 +166,10 @@ impl App {
                 Panel::Card => self.open_focused_link(),
             },
             KeyCode::Char('d') => self.toggle_card(),
+            KeyCode::Char('o') | KeyCode::Char('O') => self.toggle_mode(),
+            KeyCode::Char(c @ '1'..='9') => {
+                self.jump_to_relation((c as u8 - b'1') as usize)
+            }
             KeyCode::Char('/') => {
                 self.tree.search_mode = true;
                 self.tree.search_query.clear();
@@ -152,6 +180,55 @@ impl App {
                 self.link_focus = None;
             }
             _ => {}
+        }
+    }
+
+    fn toggle_mode(&mut self) {
+        self.mode = match self.mode {
+            Mode::Admin => Mode::Ops,
+            Mode::Ops => Mode::Admin,
+        };
+        // The relations rail takes the right panel in OPS; reset link focus.
+        self.focus = Panel::Tree;
+        self.link_focus = None;
+    }
+
+    /// Operational edges touching the focused node (in edge order).
+    pub fn relations(&self) -> Vec<Relation> {
+        let fid = match self.tree.focused_id() {
+            Some(id) => id.clone(),
+            None => return Vec::new(),
+        };
+        let mut out = Vec::new();
+        for e in &self.edges {
+            if e.source == fid {
+                out.push(Relation {
+                    other: e.target.clone(),
+                    relation: e.relation.clone(),
+                    outgoing: true,
+                });
+            } else if e.target == fid {
+                out.push(Relation {
+                    other: e.source.clone(),
+                    relation: e.relation.clone(),
+                    outgoing: false,
+                });
+            }
+        }
+        out
+    }
+
+    /// Wormhole-jump to the Nth operational relation of the focused node.
+    fn jump_to_relation(&mut self, index: usize) {
+        let target = match self.relations().get(index) {
+            Some(r) => r.other.clone(),
+            None => return,
+        };
+        let from = self.tree.focused_id().cloned();
+        self.tree.focus_on(&target);
+        self.reset_card_view();
+        if let Some(f) = from {
+            self.transition = Some((f, target, self.clock.elapsed()));
         }
     }
 

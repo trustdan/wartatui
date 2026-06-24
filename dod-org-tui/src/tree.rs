@@ -170,6 +170,27 @@ impl TreeState {
         self.nodes.keys().map(|id| self.depth_of(id)).max().unwrap_or(0)
     }
 
+    /// Expand all ancestors of `id` and move focus onto it.
+    pub fn focus_on(&mut self, id: &str) {
+        let chain = self.ancestry(id);
+        for aid in &chain {
+            if aid != id {
+                if let Some(node) = self.nodes.get_mut(aid) {
+                    node.expanded = true;
+                }
+            }
+        }
+        // If a search filter is active, clear it so the target is reachable.
+        if !self.search_query.is_empty() {
+            self.search_query.clear();
+            self.search_mode = false;
+        }
+        self.rebuild_flat_list();
+        if let Some(pos) = self.flat_list.iter().position(|x| x == id) {
+            self.focused_idx = pos;
+        }
+    }
+
     /// Node ids from root down to the given node (inclusive).
     pub fn ancestry(&self, id: &str) -> Vec<String> {
         let mut chain = Vec::new();
