@@ -1,13 +1,15 @@
 //! The administrative tree, with boot cascade and breathing cursor glow.
 
 use crate::anim;
-use crate::app::App;
+use crate::app::{App, Panel};
 use crate::theme;
 use ratatui::layout::Rect;
 use ratatui::style::{Color, Modifier, Style};
 use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, Borders, Paragraph};
 use ratatui::Frame;
+
+use super::focus_border;
 
 pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let tree = &app.tree;
@@ -84,10 +86,11 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
     let block = Block::default()
         .title(title)
         .borders(Borders::ALL)
-        .border_style(Style::default().fg(Color::Rgb(60, 70, 90)));
+        .border_style(focus_border(app.focus == Panel::Tree));
 
     // Keep the focused line in view by scrolling the paragraph.
     let inner_height = area.height.saturating_sub(2) as usize;
+    app.tree_viewport.set(inner_height as u16);
     let scroll = focus_scroll(tree.focused_idx, lines.len(), inner_height);
 
     f.render_widget(

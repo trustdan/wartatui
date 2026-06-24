@@ -1,6 +1,6 @@
 //! Bottom status line: mode, breadcrumb, and key hints (or the search input).
 
-use crate::app::{App, Mode};
+use crate::app::{App, Mode, Panel};
 use ratatui::layout::Rect;
 use ratatui::style::{Color, Style, Stylize};
 use ratatui::text::{Line, Span};
@@ -40,17 +40,21 @@ pub fn render(f: &mut Frame, app: &App, area: Rect) {
         .map(|id| app.tree.breadcrumb(id).join(" › "))
         .unwrap_or_default();
 
+    let hint = match app.focus {
+        Panel::Tree => {
+            "   hjkl move · ^d/^u page · gg/G ends · Tab→card · / search · q quit"
+        }
+        Panel::Card => "   j/k scroll · ^d/^u page · gg/G ends · Tab/h→tree · q quit",
+    };
+
     let line = Line::from(vec![
         Span::styled(
             mode_label,
             Style::default().fg(Color::Black).bg(mode_color).bold(),
         ),
         Span::raw(" "),
-        Span::styled(truncate(&crumb, 60), Style::default().fg(Color::Rgb(170, 178, 190))),
-        Span::styled(
-            "   hjkl move · space fold · d data · / search · q quit",
-            Style::default().fg(Color::Rgb(95, 102, 115)),
-        ),
+        Span::styled(truncate(&crumb, 50), Style::default().fg(Color::Rgb(170, 178, 190))),
+        Span::styled(hint, Style::default().fg(Color::Rgb(95, 102, 115))),
     ]);
     f.render_widget(Paragraph::new(line), area);
 }

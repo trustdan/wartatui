@@ -10,11 +10,18 @@ and start thinking in relationships. Phase numbers note when each binding lands.
 | `↓` / `j` | move focus down | 1 |
 | `↑` / `k` | move focus up | 1 |
 | `→` / `l` | expand branch, or jump to first child | 1 |
-| `←` / `h` | collapse branch, or jump to parent | 1 |
-| `gg` | jump to root (top) | 4 |
-| `G` | jump to last visible node | 4 |
+| `←` / `h` | collapse branch / jump to parent / leave card | 1 |
+| `Ctrl+d` / `Ctrl+u` | half-page down / up | 2 |
+| `Ctrl+f` / `Ctrl+b` | full-page down / up | 2 |
+| `PageDn` / `PageUp` | full-page down / up | 2 |
+| `gg` / `Home` | jump to top | 2 |
+| `G` / `End` | jump to bottom | 2 |
+| `Tab` / `Shift+Tab` | move focus between tree and card | 2 |
 | `}` | next sibling | 4 |
 | `{` | previous sibling | 4 |
+
+Movement keys act on whichever panel has focus: the **tree** moves the
+selection; the **card** scrolls its contents.
 
 ## Cross-cutting (the point of the app)
 

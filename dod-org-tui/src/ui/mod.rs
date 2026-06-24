@@ -8,7 +8,17 @@ mod tree_view;
 
 use crate::app::App;
 use ratatui::layout::{Constraint, Direction, Layout};
+use ratatui::style::{Color, Style};
 use ratatui::Frame;
+
+/// Border style for a panel — bright when it holds keyboard focus.
+pub(crate) fn focus_border(focused: bool) -> Style {
+    if focused {
+        Style::default().fg(Color::Rgb(120, 200, 255))
+    } else {
+        Style::default().fg(Color::Rgb(60, 70, 90))
+    }
+}
 
 pub fn render(f: &mut Frame, app: &App) {
     let size = f.size();
