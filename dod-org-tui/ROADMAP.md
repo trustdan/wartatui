@@ -47,16 +47,17 @@ The signature visual.
       (Shift+D/U, PageUp/Dn, gg/G); in-card link selection + browser open;
       ellipse fill (no clipping); "you are here" corner orientation label
 
-## Phase 3 · Dual-chain  ·  ~1–1.5 sessions
+## Phase 3 · Dual-chain  ·  ✅ DONE (merged 2026-06-24)
 
 The centerpiece.
 
-- [ ] `o` toggles ADMIN ⇄ OPS; mode shown in status line
-- [ ] OPS: relations rail lists this node's edges as numbered jump targets
-- [ ] OPS: edges draw on the constellation as arcs, colored by relation
-- [ ] Flowing-dash animation along edges; flow direction = relation direction
-- [ ] `gd` (and number keys) perform the wormhole jump with an eased transition
-- [ ] Jump auto-expands the target's ancestors and refocuses correctly
+- [x] `o` toggles ADMIN ⇄ OPS; mode shown in status line
+- [x] OPS: relations rail lists this node's edges as numbered jump targets
+- [x] OPS: edges draw on the constellation as arcs, colored by relation
+- [x] Flowing-dash animation along edges; flow direction = relation direction
+- [x] `gd` (and number keys) perform the wormhole jump with an eased transition
+- [x] Jump auto-expands the target's ancestors and refocuses correctly
+- [x] Bonus: visible comet streak with fading trail + destination flash
 
 ## Phase 4 · Vim power-moves  ·  ~0.5–1 session
 
