@@ -1,70 +1,103 @@
-# dod-org-tui
+<div align="center">
 
-A cinematic terminal navigator for the DoD organizational structure — 149 nodes,
-dual chain of command, wormhole jumps, and a live constellation minimap.
+# wartatui
 
-## Build
+### A cinematic terminal navigator for the U.S. Department of Defense org chart
 
-Requires Rust. [Install here](https://rustup.rs/).
+**149 nodes · dual chain of command · wormhole jumps · live constellation minimap**
+
+[![Rust](https://img.shields.io/badge/built_with-Rust-000000?logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![ratatui](https://img.shields.io/badge/TUI-ratatui-7c5cdf)](https://ratatui.rs/)
+[![Classification](https://img.shields.io/badge/UNCLASSIFIED-00c800)](#the-data)
+[![License](https://img.shields.io/badge/license-MIT-blue)](#license)
+
+<br />
+
+![wartatui in motion](https://raw.githubusercontent.com/trustdan/wartatui/main/wartatui.gif)
+
+</div>
+
+---
+
+## Why this exists
+
+The DoD has **two** org charts, and the gap between them is the whole story:
+
+- **Administrative chain** — the Title 10 *"organize, train, and equip"* hierarchy. The chart everyone draws.
+- **Operational chain** — who actually *provides forces to* whom, who *fights for* whom.
+
+Navy Pacific Fleet belongs to the Navy on paper, but answers to INDOPACOM in a fight. That gap is the most confusing — and most interesting — thing about how the Pentagon works, and no web org chart shows it well. **`wartatui` makes it navigable.** Press `o`, and the operational edges light up across the tree.
+
+---
+
+## Features
+
+- 🌌 **Constellation minimap** — a radial star-field of all 149 nodes; your breadcrumb path lit in blue, a traveling spark pulsing along your ancestry chain.
+- 🪐 **Wormhole jumps** — `gd` or `1`–`9` launches an animated comet along a bezier arc to a node's operational partner, auto-expanding ancestors and refocusing.
+- 🎚️ **Dual-mode** — toggle **ADMIN ⇄ OPS** with `o`. OPS overlays glowing braille edges, flowing source→target, colored by relation type.
+- 🎨 **Type-coded colors** — hue encodes *what* a node is (gold apex, blue secretariat, violet Joint, green services, warm COCOMs, teal commands, slate agencies); brightness encodes *how deep* it sits.
+- ⌨️ **Vim navigation** — `hjkl`, folds (`za`/`zM`/`zR`), marks (`m{a-z}` / `'{a-z}`), same-type cycling (`[` / `]`), live search (`/`).
+- 🃏 **Unit cards** — every node carries its U.S.C. statutory citation, HQ, commander, and a source link you can open in your browser.
+- ✨ **Full cinematic render loop** — boot cascade, breathing cursor glow, twinkle, shimmering classification banner. (`--no-anim` turns it all off for SSH / battery.)
+
+---
+
+## Install & run
+
+Requires [Rust](https://rustup.rs/).
 
 ```bash
+git clone https://github.com/trustdan/wartatui
+cd wartatui
 cargo build --release
 ```
 
-Binary: `target/release/dod-org-tui`
-
-## Run
-
 ```bash
 ./target/release/dod-org-tui                        # auto-discovers the JSON
-./target/release/dod-org-tui --data <path-to-json>  # explicit path
+./target/release/dod-org-tui --data <path-to-json>  # explicit data path
 ./target/release/dod-org-tui --no-anim              # static mode (SSH / battery)
 ```
 
-## Controls
+---
 
-See [KEYMAP.md](KEYMAP.md) for the full reference. Quick start:
+## Quick keys
 
 | Key | Action |
 | --- | --- |
-| `↑ / k`, `↓ / j` | move focus |
-| `← / h`, `→ / l` | collapse / expand branch |
-| `Space / Enter` | toggle expand/collapse |
-| `D / U`, `PageDn / PageUp` | half-page / full-page scroll |
-| `gg / Home`, `G / End` | jump to top / bottom |
-| `{ / }` | previous / next sibling |
-| `[ / ]` | previous / next node of the same type |
-| `m{a-z}` / `'{a-z}` | set / jump to a named mark |
-| `za / zM / zR` | toggle fold / collapse all / expand all |
-| `/` | live search (type to filter; `n / N` to step matches) |
-| `d` | toggle unit-data card (right panel) |
-| `Tab` | cycle focus: tree → card → links → tree |
-| `Enter` | (on link) open in browser |
-| `o` | toggle ADMIN ⇄ OPS mode |
-| `1`–`9` | wormhole-jump to the Nth OPS relation |
-| `gd` | wormhole-jump along edge 1 |
-| `q / Ctrl+C` | quit |
+| `↑/k` `↓/j` | move focus |
+| `←/h` `→/l` | collapse / expand branch |
+| `/` | live search (`n` / `N` to step matches) |
+| `[` `]` | previous / next node of the **same type** |
+| `o` | toggle **ADMIN ⇄ OPS** mode |
+| `gd` · `1`–`9` | **wormhole-jump** along an operational edge |
+| `m{a-z}` `'{a-z}` | set / jump to a named mark |
+| `d` | toggle the unit-data card |
+| `Tab` | cycle focus: tree → card → links |
+| `q` / `Ctrl+C` | quit |
 
-## Visual features
+Full reference in **[KEYMAP.md](KEYMAP.md)**.
 
-- **Constellation minimap** — radial star-field of all 149 nodes; breadcrumb path
-  lit in blue; traveling spark pulses along your ancestry chain.
-- **Type-coded colors** — gold for apex, blue for OSD/secretariat, violet for
-  Joint, green for services, amber/crimson for COCOMs, teal for commands, slate
-  for agencies.
-- **Echelon shading** — apex nodes are brightest; depth dims toward the leaves.
-- **Boot cascade** — banner flickers in, tree grows out from DoD (~1.6 s).
-- **Breathing cursor** — focused node glows softly in the tree and pulses on the
-  constellation.
-- **OPS mode** — press `o` to switch to the operational chain. A relations rail
-  lists numbered jump targets; arcs flow on the minimap, colored by relation type.
-- **Wormhole jump** — `gd` or `1`–`9` launches an animated comet along a bezier
-  arc to the target node; auto-expands ancestors and refocuses.
-- **Classification banner** — top bar: classification badge + typewriter title on
-  boot; badge shimmers gently while running.
+---
 
 ## The data
 
-Reads from `dod-org-data-research-ingest.json`. Auto-discovered from the current
-directory, beside the executable, or two levels up (project root). Override with
-`--data <path>`.
+Reads from `dod-org-data-research-ingest.json`: **149 nodes, 13 edges, 6 echelons**, rooted at the Department of Defense. Every node carries a U.S.C. citation, source URL, confidence, and notes. The file is auto-discovered from the current directory, beside the executable, or at the project root — override with `--data <path>`.
+
+The banner classification is **data-driven** (`meta.classification`), not hard-coded — currently `UNCLASSIFIED`.
+
+---
+
+## Project docs
+
+| Doc | What's in it |
+| --- | --- |
+| **[DESIGN.md](DESIGN.md)** | the soul of the app — dual chains, locked decisions, architecture |
+| **[THEME.md](THEME.md)** | the color contract — hue per type, echelon shading, edge colors |
+| **[KEYMAP.md](KEYMAP.md)** | every keybinding |
+| **[ROADMAP.md](ROADMAP.md)** | build phases |
+
+---
+
+## License
+
+MIT.
